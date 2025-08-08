@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>Redirigiendo a RunnerShield...</title>
+    <script type="text/javascript">
+        // Obtener los parámetros de la URL (especialmente el 'code' de Strava)
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        const scope = urlParams.get('scope'); // Opcional: si necesitas el scope
+
+        // Construir la URL de redirección a tu aplicación RunnerShield
+        let redirectUrl = 'runnershield://exchange_token';
+        if (code) {
+            redirectUrl += '?code=' + encodeURIComponent(code);
+            if (scope) {
+                redirectUrl += '&scope=' + encodeURIComponent(scope);
+            }
+        }
+        
+        // Redirigir el navegador a tu aplicación
+        window.location.replace(redirectUrl);
+
+        // Opcional: Mensaje para el usuario si la redirección no funciona
+        // setTimeout(function() {
+        //     document.getElementById('message').style.display = 'block';
+        //     document.getElementById('redirectLink').href = redirectUrl;
+        // }, 2000); // Muestra el mensaje después de 2 segundos si no hay redirección
+    </script>
+</head>
+<body>
+    <p>Si no eres redirigido automáticamente, haz clic <a id="redirectLink" href="#">aquí</a>.</p>
+    <!-- <p id="message" style="display:none;">Si no eres redirigido automáticamente, haz clic <a id="redirectLink" href="#">aquí</a>.</p> -->
+</body>
+</html>
