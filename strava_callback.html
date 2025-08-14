@@ -8,7 +8,7 @@
         const scope = urlParams.get('scope'); // Opcional: si necesitas el scope
 
         // Construir la URL de redirección a tu aplicación RunnerShield
-        let redirectUrl = 'runnershield://exchange_token';
+        let redirectUrl = 'trailStats://exchange_token';
         if (code) {
             redirectUrl += '?code=' + encodeURIComponent(code);
             if (scope) {
