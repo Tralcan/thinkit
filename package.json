@@ -1,0 +1,24 @@
+{
+  "name": "thinkit-website",
+  "version": "1.0.0",
+  "description": "ThinkIT - Partner Tecnológico para PYMEs",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./dist/styles.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./dist/styles.css --watch",
+    "optimize:images": "bash optimize_images.sh"
+  },
+  "keywords": [
+    "consultoria",
+    "tecnologia",
+    "pyme",
+    "chile"
+  ],
+  "author": "ThinkIT",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  },
+  "dependencies": {
+    "sharp-cli": "^4.2.0"
+  }
+}

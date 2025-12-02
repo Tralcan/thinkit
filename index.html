@@ -40,8 +40,8 @@
         content="Asesoría tecnológica estratégica para PYMEs. Más de 20 años de experiencia en estrategia TI, ciberseguridad, BI y transformación digital.">
     <meta name="twitter:image" content="https://thinkit.cl/logo.png">
 
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS - Compilado localmente (optimizado) -->
+    <link rel="stylesheet" href="/dist/styles.css">
 
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -117,39 +117,6 @@
     }
     </script>
 
-    <style>
-        /* Estilos personalizados para complementar Tailwind */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
-        }
-
-        .hero-bg {
-            background-color: #1e3a8a;
-            background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.1) 1px, transparent 0);
-            background-size: 20px 20px;
-        }
-
-        .cta-button {
-            transition: all 0.3s ease;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        }
-
-        .client-logo {
-            transition: all 0.3s ease;
-            filter: grayscale(100%);
-            opacity: 0.6;
-        }
-
-        .client-logo:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-        }
-    </style>
 </head>
 
 <body class="text-gray-800">
@@ -186,9 +153,12 @@
         <!-- ========== SECCIÓN HERO ========== -->
         <section class="hero-bg text-white" aria-labelledby="hero-title">
             <div class="container mx-auto px-6 py-24 md:py-32 text-center">
-                <img src="logo.png" alt="ThinkIT - Logo de la empresa de consultoría tecnológica"
-                    class="h-32 mx-auto mb-8 transition-all duration-300 ease-in-out hover:drop-shadow-[0_10px_8px_rgba(0,0,0,0.25)] hover:-translate-y-1 rounded-lg"
-                    loading="eager" height="128">
+                <picture>
+                    <source srcset="logo.webp" type="image/webp">
+                    <img src="logo.png" alt="ThinkIT - Logo de la empresa de consultoría tecnológica"
+                        class="h-32 mx-auto mb-8 transition-all duration-300 ease-in-out hover:drop-shadow-[0_10px_8px_rgba(0,0,0,0.25)] hover:-translate-y-1 rounded-lg"
+                        loading="eager" width="128" height="128">
+                </picture>
                 <h1 id="hero-title" class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Un Partner
                     Tecnológico para tu Negocio</h1>
                 <p class="text-lg md:text-xl text-blue-200 max-w-3xl mx-auto mb-8">
@@ -355,19 +325,37 @@
                         diversas industrias.</p>
                 </div>
                 <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
-                    <img src="clientes/okparking.png" alt="OKParking - Cliente de ThinkIT" class="h-12 client-logo"
-                        loading="lazy" width="150" height="48">
-                    <img src="clientes/Autoteck.png" alt="Serviteca Autoteck - Cliente de ThinkIT"
-                        class="h-12 client-logo" loading="lazy" width="150" height="48">
-                    <img src="clientes/conelse.png" alt="Conelse Servicios Eléctricos - Cliente de ThinkIT"
-                        class="h-12 client-logo" loading="lazy" width="150" height="48">
-                    <img src="clientes/sfc.png" alt="SFC Exportaciones de Fruta - Cliente de ThinkIT"
-                        class="h-12 client-logo" loading="lazy" width="150" height="48">
-                    <img src="clientes/acuiferos.png" alt="Recarga Artificial de Acuíferos - Cliente de ThinkIT"
-                        class="h-12 client-logo" loading="lazy" width="150" height="48">
-                    <img src="clientes/opturion.png"
-                        alt="Opturion Modelos Inteligentes de Transportes - Cliente de ThinkIT" class="h-12 client-logo"
-                        loading="lazy" width="150" height="48">
+                    <picture>
+                        <source srcset="clientes/okparking.webp" type="image/webp">
+                        <img src="clientes/okparking.png" alt="OKParking - Cliente de ThinkIT" class="h-12 client-logo"
+                            loading="lazy" width="150" height="48">
+                    </picture>
+                    <picture>
+                        <source srcset="clientes/Autoteck.webp" type="image/webp">
+                        <img src="clientes/Autoteck.png" alt="Serviteca Autoteck - Cliente de ThinkIT"
+                            class="h-12 client-logo" loading="lazy" width="150" height="48">
+                    </picture>
+                    <picture>
+                        <source srcset="clientes/conelse.webp" type="image/webp">
+                        <img src="clientes/conelse.png" alt="Conelse Servicios Eléctricos - Cliente de ThinkIT"
+                            class="h-12 client-logo" loading="lazy" width="150" height="48">
+                    </picture>
+                    <picture>
+                        <source srcset="clientes/sfc.webp" type="image/webp">
+                        <img src="clientes/sfc.png" alt="SFC Exportaciones de Fruta - Cliente de ThinkIT"
+                            class="h-12 client-logo" loading="lazy" width="150" height="48">
+                    </picture>
+                    <picture>
+                        <source srcset="clientes/acuiferos.webp" type="image/webp">
+                        <img src="clientes/acuiferos.png" alt="Recarga Artificial de Acuíferos - Cliente de ThinkIT"
+                            class="h-12 client-logo" loading="lazy" width="150" height="48">
+                    </picture>
+                    <picture>
+                        <source srcset="clientes/opturion.webp" type="image/webp">
+                        <img src="clientes/opturion.png"
+                            alt="Opturion Modelos Inteligentes de Transportes - Cliente de ThinkIT"
+                            class="h-12 client-logo" loading="lazy" width="150" height="48">
+                    </picture>
                 </div>
             </div>
         </section>
@@ -392,9 +380,15 @@
                         →</a>
                 </div>
                 <div class="order-first md:order-last">
-                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1932&auto=format&fit=crop"
-                        alt="Equipo de profesionales de ThinkIT trabajando en estrategia tecnológica"
-                        class="rounded-xl shadow-lg w-full h-full object-cover" loading="lazy" width="600" height="400">
+                    <picture>
+                        <source
+                            srcset="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1932&auto=format&fit=crop&fm=webp"
+                            type="image/webp">
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1932&auto=format&fit=crop"
+                            alt="Equipo de profesionales de ThinkIT trabajando en estrategia tecnológica"
+                            class="rounded-xl shadow-lg w-full h-full object-cover" loading="lazy" width="600"
+                            height="400">
+                    </picture>
                 </div>
             </div>
         </section>

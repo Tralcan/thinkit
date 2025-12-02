@@ -15,8 +15,8 @@ count_in_file() {
     grep -c "$1" "$2" 2>/dev/null || echo "0"
 }
 
-ORIGINAL="index.html"
-OPTIMIZED="index_seo_optimized.html"
+ORIGINAL="index_old.html"
+OPTIMIZED="index.html"
 
 echo "1. META TAGS:"
 echo "   Original:"

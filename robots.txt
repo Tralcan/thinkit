@@ -1,0 +1,22 @@
+# robots.txt para thinkit.cl
+# Generado: 2025-12-02
+
+User-agent: *
+Allow: /
+
+# Bloquear archivos técnicos
+Disallow: /strava_callback.html
+Disallow: /.git/
+Disallow: /CNAME
+
+# Permitir explícitamente páginas importantes
+Allow: /index.html
+Allow: /politicas.html
+Allow: /clientes/
+
+# Sitemap
+Sitemap: https://thinkit.cl/sitemap.xml
+
+# Crawl-delay para bots agresivos
+User-agent: *
+Crawl-delay: 1
