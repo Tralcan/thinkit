@@ -171,8 +171,7 @@
                 <a href="#clientes" class="text-gray-600 hover:text-blue-600 font-medium">Clientes</a>
                 <a href="#nosotros" class="text-gray-600 hover:text-blue-600 font-medium">Nosotros</a>
                 <a href="#planes" class="text-gray-600 hover:text-blue-600 font-medium">Planes</a>
-                <a href="#contacto"
-                    class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 cta-button">Contacto</a>
+                <a href="#contacto" class="text-gray-600 hover:text-blue-600 font-medium">Contacto</a>
             </nav>
             <button class="md:hidden text-gray-700" aria-label="Abrir menú de navegación" aria-expanded="false">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -189,7 +188,7 @@
             <div class="container mx-auto px-6 py-24 md:py-32 text-center">
                 <img src="logo.png" alt="ThinkIT - Logo de la empresa de consultoría tecnológica"
                     class="h-32 mx-auto mb-8 transition-all duration-300 ease-in-out hover:drop-shadow-[0_10px_8px_rgba(0,0,0,0.25)] hover:-translate-y-1 rounded-lg"
-                    loading="eager" width="128" height="128">
+                    loading="eager" height="128">
                 <h1 id="hero-title" class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Un Partner
                     Tecnológico para tu Negocio</h1>
                 <p class="text-lg md:text-xl text-blue-200 max-w-3xl mx-auto mb-8">
@@ -413,8 +412,13 @@
                                 IVA</span></p>
                         <p class="text-gray-600 text-sm">Ideal para empresas con necesidades puntuales.</p>
                     </article>
-                    <article class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-shadow">
-                        <h3 class="text-xl font-bold mb-2">Plan Avanzado</h3>
+                    <article
+                        class="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-shadow border-2 border-blue-600 relative">
+                        <div
+                            class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                            Recomendado
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 mt-2">Plan Avanzado</h3>
                         <p class="text-gray-600 mb-3">8 horas/mes</p>
                         <p class="text-2xl font-bold text-blue-600 mb-3">$450.000 <span class="text-sm text-gray-500">+
                                 IVA</span></p>
@@ -519,6 +523,18 @@
                             <div>
                                 <h4 class="font-semibold text-gray-800">Ubicación</h4>
                                 <p>Santiago, Chile</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 flex-shrink-0 mt-1"
+                                fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">LinkedIn</h4>
+                                <a href="https://www.linkedin.com/company/thinkit-spa/" target="_blank"
+                                    rel="noopener noreferrer" class="hover:text-blue-600">ThinkIT SpA</a>
                             </div>
                         </div>
                     </div>
