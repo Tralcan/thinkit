@@ -566,24 +566,64 @@
                             </svg>
                             <!-- Botón -->
                             <div>
-                                <h4 class="font-semibold text-gray-800">Agendar Reunión</h4>
-                                <button id="openModal" class="hover:text-blue-600 font-medium">
-                                    Reservar una hora
-                                </button>
+                                <h4>Agendar Reunión</h4>
+                                <button id="openModal">Reservar una hora</button>
                             </div>
 
                             <!-- Modal -->
-                            <div id="modal"
-                                class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-                                <div class="bg-white w-[480px] h-[640px] rounded-lg overflow-hidden relative">
-                                    <!-- Cerrar -->
-                                    <button id="closeModal"
-                                        class="absolute top-2 right-2 text-gray-700 font-bold text-xl">&times;</button>
-
-                                    <!-- Contenido del iframe -->
-                                    <iframe id="modalIframe" src="" class="w-full h-full border-0"></iframe>
+                            <div id="modal" class="modal">
+                                <div class="modal-content">
+                                    <button id="closeModal" class="close-btn">&times;</button>
+                                    <iframe id="modalIframe" src="" frameborder="0"></iframe>
                                 </div>
                             </div>
+
+                            <style>
+                                /* Fondo del modal */
+                                .modal {
+                                    display: none;
+                                    /* oculto por defecto */
+                                    position: fixed;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    background-color: rgba(0, 0, 0, 0.5);
+                                    justify-content: center;
+                                    align-items: center;
+                                    z-index: 9999;
+                                }
+
+                                /* Contenedor centrado */
+                                .modal-content {
+                                    width: 480px;
+                                    height: 640px;
+                                    background-color: #fff;
+                                    border-radius: 10px;
+                                    overflow: hidden;
+                                    position: relative;
+                                    display: flex;
+                                    flex-direction: column;
+                                }
+
+                                /* Botón de cierre */
+                                .close-btn {
+                                    position: absolute;
+                                    top: 10px;
+                                    right: 10px;
+                                    font-size: 24px;
+                                    background: none;
+                                    border: none;
+                                    cursor: pointer;
+                                }
+
+                                /* Iframe ocupa todo el contenedor */
+                                .modal-content iframe {
+                                    width: 100%;
+                                    height: 100%;
+                                    border: 0;
+                                }
+                            </style>
 
                             <script>
                                 const modal = document.getElementById('modal');
@@ -592,19 +632,19 @@
                                 const iframe = document.getElementById('modalIframe');
 
                                 openBtn.addEventListener('click', () => {
-                                    iframe.src = "https://agenda.thinkit.cl"; // URL que quieres mostrar
-                                    modal.classList.remove('hidden');
+                                    iframe.src = "https://agenda.thinkit.cl";
+                                    modal.style.display = "flex";
                                 });
 
                                 closeBtn.addEventListener('click', () => {
-                                    modal.classList.add('hidden');
-                                    iframe.src = ""; // Limpiar iframe para liberar memoria
+                                    modal.style.display = "none";
+                                    iframe.src = "";
                                 });
 
-                                // Cerrar modal si se hace click fuera del contenido
+                                // Cerrar si se hace click fuera del contenido
                                 modal.addEventListener('click', (e) => {
                                     if (e.target === modal) {
-                                        modal.classList.add('hidden');
+                                        modal.style.display = "none";
                                         iframe.src = "";
                                     }
                                 });
