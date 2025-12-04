@@ -51,4 +51,19 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Blog Posts -->
+  <url>
+    <loc>https://thinkit.cl/blog/cuando-necesita-pyme-cto-externo.html</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://thinkit.cl/blog/5-senales-pyme-necesita-asesoria-ti.html</loc>
+    <lastmod>2025-12-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
