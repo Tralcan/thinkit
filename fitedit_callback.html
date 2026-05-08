@@ -1,51 +1,22 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autenticando con Strava...</title>
-    <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f4f4f9; }
-        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #fc4c02; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .container { text-align: center; }
-    </style>
-</head>
+<html>
 <body>
-    <div class="container">
-        <div class="loader" id="loader"></div>
-        <p id="status">Procesando conexión con Strava...</p>
-    </div>
-
-    <script type="text/javascript">
-        // 1. Obtener parámetros de la URL
+    <script>
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
+        const state = urlParams.get('state');
         const error = urlParams.get('error');
-        const scope = urlParams.get('scope');
-
-        const statusText = document.getElementById('status');
-        const loader = document.getElementById('loader');
 
         if (error) {
-            statusText.innerText = "Error al autorizar: " + error;
-            loader.style.display = 'none';
-        } else if (code) {
-            // 2. Guardar el código temporalmente
-            // Esto permite que tu aplicación principal en React/Next.js lo recupere
-            localStorage.setItem('strava_auth_code', code);
-            localStorage.setItem('strava_auth_scope', scope);
-
-            statusText.innerText = "¡Autorización exitosa! Redirigiendo al editor...";
-
-            // 3. Redirigir a la página principal del editor FIT
-            // Ajusta la ruta según donde tengas tu aplicación
-            setTimeout(() => {
-                window.location.replace('/fit-editor/'); 
-            }, 1000);
+            alert('Error Strava: ' + error);
+            window.close();
+        } else if (code && state) {
+            // Decodificamos el 'state' que guardamos en el servidor, 
+            // que contiene la URL de retorno dinámica (la de AI Studio o la final)
+            const targetUrl = decodeURIComponent(state);
+            window.location.href = targetUrl + (targetUrl.includes('?') ? '&' : '?') + 'code=' + code;
         } else {
-            statusText.innerText = "No se recibió código de autorización.";
-            loader.style.display = 'none';
+            console.error('Faltan parámetros code o state');
         }
     </script>
 </body>
