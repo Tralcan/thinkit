@@ -7,9 +7,12 @@
 
     <!-- Primary Meta Tags -->
     <title>ThinkIT | Partner Tecnológico para PYMEs en Chile - Estrategia TI y Transformación Digital</title>
-    <meta name="title" content="ThinkIT | Partner Tecnológico para PYMEs en Chile - Estrategia TI y Transformación Digital">
-    <meta name="description" content="Asesoría tecnológica estratégica para PYMEs en Chile. Más de 20 años de experiencia en estrategia TI, ciberseguridad, BI, automatización y transformación digital. Planes desde $240.000 + IVA.">
-    <meta name="keywords" content="asesoría tecnológica, consultoría TI, transformación digital, ciberseguridad, business intelligence, automatización, estrategia digital, CTO externo, gerencia TI, PYME Chile">
+    <meta name="title"
+        content="ThinkIT | Partner Tecnológico para PYMEs en Chile - Estrategia TI y Transformación Digital">
+    <meta name="description"
+        content="Asesoría tecnológica estratégica para PYMEs en Chile. Más de 20 años de experiencia en estrategia TI, ciberseguridad, BI, automatización y transformación digital. Planes desde $240.000 + IVA.">
+    <meta name="keywords"
+        content="asesoría tecnológica, consultoría TI, transformación digital, ciberseguridad, business intelligence, automatización, estrategia digital, CTO externo, gerencia TI, PYME Chile">
     <meta name="author" content="ThinkIT">
     <meta name="robots" content="index, follow">
     <meta name="language" content="Spanish">
@@ -19,7 +22,9 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -52,27 +57,54 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, .nav-logo {
+        h1,
+        h2,
+        h3,
+        h4,
+        .nav-logo {
             font-family: 'Outfit', sans-serif;
             font-weight: 700;
         }
 
         /* --- Animations --- */
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
 
         @keyframes glow {
-            0% { box-shadow: 0 0 5px var(--glow-primary); }
-            50% { box-shadow: 0 0 20px var(--glow-primary); }
-            100% { box-shadow: 0 0 5px var(--glow-primary); }
+            0% {
+                box-shadow: 0 0 5px var(--glow-primary);
+            }
+
+            50% {
+                box-shadow: 0 0 20px var(--glow-primary);
+            }
+
+            100% {
+                box-shadow: 0 0 5px var(--glow-primary);
+            }
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .reveal {
@@ -182,11 +214,26 @@
             z-index: 1;
         }
 
-        .hero-logo {
+        .hero-logo-container {
             width: 120px;
-            margin-bottom: 2rem;
+            height: 120px;
+            margin: 0 auto 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             filter: drop-shadow(0 0 15px var(--glow-primary));
             animation: float 4s ease-in-out infinite;
+            padding: 15px;
+        }
+
+        .hero-logo-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
 
         .hero h1 {
@@ -513,12 +560,30 @@
 
         /* --- Mobile Responsive --- */
         @media (max-width: 768px) {
-            header { padding: 0.5rem 0; }
-            nav ul { display: none; }
-            .mobile-menu-btn { display: block; }
-            .contact-container { grid-template-columns: 1fr; padding: 2rem; }
-            .hero h1 { font-size: 3rem; }
-            .price-card.featured { transform: scale(1); }
+            header {
+                padding: 0.5rem 0;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .price-card.featured {
+                transform: scale(1);
+            }
         }
     </style>
 </head>
@@ -526,7 +591,8 @@
 <body>
 
     <!-- Skip to main content -->
-    <a href="#main-content" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
+    <a href="#main-content"
+        style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
         Saltar al contenido principal
     </a>
 
@@ -556,12 +622,17 @@
         <!-- ========== HERO SECTION ========== -->
         <section class="hero">
             <div class="container hero-content">
-                <img src="Thinkit.png" alt="ThinkIT Logo" class="hero-logo">
+                <div class="hero-logo-container">
+                    <img src="Thinkit.png" alt="ThinkIT Logo">
+                </div>
                 <h1>Transformación Digital <br> Inteligente</h1>
-                <p>Potenciamos el crecimiento de tu PYME con asesoría tecnológica estratégica y soluciones basadas en IA de alto impacto.</p>
+                <p>Potenciamos el crecimiento de tu PYME con asesoría tecnológica estratégica y soluciones basadas en IA
+                    de alto impacto.</p>
                 <div style="display: flex; gap: 1rem; justify-content: center;">
                     <a href="#contacto" class="btn btn-primary">Comienza tu Evolución</a>
-                    <button id="openModalHero" class="btn" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--glass-border);">Agendar Cita</button>
+                    <button id="openModalHero" class="btn"
+                        style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--glass-border);">Agendar
+                        Cita</button>
                 </div>
             </div>
         </section>
@@ -571,7 +642,8 @@
             <div class="container">
                 <div class="section-header reveal">
                     <h2>Nuestros Servicios</h2>
-                    <p style="color: var(--text-dim);">Entregamos visión experta para decisiones tecnológicas críticas.</p>
+                    <p style="color: var(--text-dim);">Entregamos visión experta para decisiones tecnológicas críticas.
+                    </p>
                 </div>
                 <div class="services-grid">
                     <article class="card reveal">
@@ -659,18 +731,24 @@
                 <div class="devs-grid">
                     <article class="dev-card reveal">
                         <h3>TripMaster</h3>
-                        <p style="color: var(--text-dim);">Planificador de viajes inteligente potenciado por IA Generativa.</p>
-                        <a href="https://tripmaster.thinkit.cl" target="_blank" class="dev-link">Explorar <i data-lucide="external-link" size="16"></i></a>
+                        <p style="color: var(--text-dim);">Planificador de viajes inteligente potenciado por IA
+                            Generativa.</p>
+                        <a href="https://tripmaster.thinkit.cl" target="_blank" class="dev-link">Explorar <i
+                                data-lucide="external-link" size="16"></i></a>
                     </article>
                     <article class="dev-card reveal">
                         <h3>LinguaFlow</h3>
-                        <p style="color: var(--text-dim);">Mejora tu fluidez hablando con IA en múltiples idiomas en tiempo real.</p>
-                        <a href="https://linguaflow.thinkit.cl" target="_blank" class="dev-link">Practicar <i data-lucide="external-link" size="16"></i></a>
+                        <p style="color: var(--text-dim);">Mejora tu fluidez hablando con IA en múltiples idiomas en
+                            tiempo real.</p>
+                        <a href="https://linguaflow.thinkit.cl" target="_blank" class="dev-link">Practicar <i
+                                data-lucide="external-link" size="16"></i></a>
                     </article>
                     <article class="dev-card reveal">
                         <h3>Gestión Hídrica</h3>
-                        <p style="color: var(--text-dim);">Simulador de recarga de acuíferos con modelos predictivos de IA.</p>
-                        <a href="https://ia.acuiferoschile.cl" target="_blank" class="dev-link">Ver más <i data-lucide="external-link" size="16"></i></a>
+                        <p style="color: var(--text-dim);">Simulador de recarga de acuíferos con modelos predictivos de
+                            IA.</p>
+                        <a href="https://ia.acuiferoschile.cl" target="_blank" class="dev-link">Ver más <i
+                                data-lucide="external-link" size="16"></i></a>
                     </article>
                 </div>
             </div>
@@ -679,33 +757,46 @@
         <!-- ========== NOSOTROS ========== -->
         <section id="nosotros">
             <div class="container">
-                <div class="contact-container reveal" style="align-items: center; background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(0,242,255,0.02) 100%);">
+                <div class="contact-container reveal"
+                    style="align-items: center; background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(0,242,255,0.02) 100%);">
                     <div class="nosotros-image">
-                        <img src="thinkit_team_tech_premium_1778802253719.png" alt="Equipo ThinkIT trabajando" style="width: 100%; border-radius: 24px; border: 1px solid var(--glass-border); box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+                        <img src="thinkit_team_tech_premium_1778802253719.png" alt="Equipo ThinkIT trabajando"
+                            style="width: 100%; border-radius: 24px; border: 1px solid var(--glass-border); box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
                     </div>
                     <div>
-                        <h2 style="margin-bottom: 1.5rem; background: linear-gradient(135deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Quiénes Somos</h2>
-                        <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 1.5rem; font-weight: 500;">Socio Tecnológico Estratégico con más de 20 años de experiencia.</p>
-                        <p style="color: var(--text-dim); margin-bottom: 1.5rem;">Impulsamos proyectos que conectan la tecnología con los objetivos reales de tu negocio, generando eficiencia, innovación y crecimiento sostenible.</p>
-                        <p style="color: var(--text-dim); margin-bottom: 2rem;">Ofrecemos apoyo ejecutivo a PYMEs que necesitan una mirada experta sin la complejidad de un gerente de TI full-time. Somos tus aliados en decisiones clave y liderazgo tecnológico.</p>
-                        
+                        <h2
+                            style="margin-bottom: 1.5rem; background: linear-gradient(135deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                            Quiénes Somos</h2>
+                        <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 1.5rem; font-weight: 500;">
+                            Socio Tecnológico Estratégico con más de 20 años de experiencia.</p>
+                        <p style="color: var(--text-dim); margin-bottom: 1.5rem;">Impulsamos proyectos que conectan la
+                            tecnología con los objetivos reales de tu negocio, generando eficiencia, innovación y
+                            crecimiento sostenible.</p>
+                        <p style="color: var(--text-dim); margin-bottom: 2rem;">Ofrecemos apoyo ejecutivo a PYMEs que
+                            necesitan una mirada experta sin la complejidad de un gerente de TI full-time. Somos tus
+                            aliados en decisiones clave y liderazgo tecnológico.</p>
+
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                             <div style="display: flex; gap: 1rem; align-items: flex-start;">
-                                <div style="background: var(--glow-primary); padding: 0.5rem; border-radius: 12px; color: var(--primary);">
+                                <div
+                                    style="background: var(--glow-primary); padding: 0.5rem; border-radius: 12px; color: var(--primary);">
                                     <i data-lucide="check-circle" size="20"></i>
                                 </div>
                                 <div>
                                     <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Visión Experta</h4>
-                                    <p style="font-size: 0.85rem; color: var(--text-dim);">Liderazgo en organizaciones de alto nivel.</p>
+                                    <p style="font-size: 0.85rem; color: var(--text-dim);">Liderazgo en organizaciones
+                                        de alto nivel.</p>
                                 </div>
                             </div>
                             <div style="display: flex; gap: 1rem; align-items: flex-start;">
-                                <div style="background: var(--glow-secondary); padding: 0.5rem; border-radius: 12px; color: var(--secondary);">
+                                <div
+                                    style="background: var(--glow-secondary); padding: 0.5rem; border-radius: 12px; color: var(--secondary);">
                                     <i data-lucide="trending-up" size="20"></i>
                                 </div>
                                 <div>
                                     <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Valor Real</h4>
-                                    <p style="font-size: 0.85rem; color: var(--text-dim);">Foco absoluto en resultados de negocio.</p>
+                                    <p style="font-size: 0.85rem; color: var(--text-dim);">Foco absoluto en resultados
+                                        de negocio.</p>
                                 </div>
                             </div>
                         </div>
@@ -724,28 +815,37 @@
                 <div class="pricing-grid">
                     <div class="price-card reveal">
                         <h3>Plan Base</h3>
-                        <div class="price">$240.000 <span style="font-size: 1rem; color: var(--text-dim);">+ IVA</span></div>
+                        <div class="price">$240.000 <span style="font-size: 1rem; color: var(--text-dim);">+ IVA</span>
+                        </div>
                         <p style="margin-bottom: 2rem;">4 horas / mes</p>
-                        <p style="font-size: 0.9rem; color: var(--text-dim);">Ideal para necesidades puntuales y consultoría rápida.</p>
+                        <p style="font-size: 0.9rem; color: var(--text-dim);">Ideal para necesidades puntuales y
+                            consultoría rápida.</p>
                     </div>
                     <div class="price-card featured reveal">
-                        <div style="background: var(--secondary); color: #fff; padding: 0.2rem 1rem; border-radius: 50px; font-size: 0.75rem; display: inline-block; margin-bottom: 1rem;">MÁS POPULAR</div>
+                        <div
+                            style="background: var(--secondary); color: #fff; padding: 0.2rem 1rem; border-radius: 50px; font-size: 0.75rem; display: inline-block; margin-bottom: 1rem;">
+                            MÁS POPULAR</div>
                         <h3>Plan Avanzado</h3>
-                        <div class="price">$450.000 <span style="font-size: 1rem; color: var(--text-dim);">+ IVA</span></div>
+                        <div class="price">$450.000 <span style="font-size: 1rem; color: var(--text-dim);">+ IVA</span>
+                        </div>
                         <p style="margin-bottom: 2rem;">8 horas / mes</p>
-                        <p style="font-size: 0.9rem; color: var(--text-dim);">Acompañamiento activo en proyectos de transformación.</p>
+                        <p style="font-size: 0.9rem; color: var(--text-dim);">Acompañamiento activo en proyectos de
+                            transformación.</p>
                     </div>
                     <div class="price-card reveal">
                         <h3>Estratégico</h3>
-                        <div class="price">$900.000 <span style="font-size: 1rem; color: var(--text-dim);">+ IVA</span></div>
+                        <div class="price">$900.000 <span style="font-size: 1rem; color: var(--text-dim);">+ IVA</span>
+                        </div>
                         <p style="margin-bottom: 2rem;">16 horas / mes</p>
-                        <p style="font-size: 0.9rem; color: var(--text-dim);">Gerencia TI externa para empresas con múltiples frentes.</p>
+                        <p style="font-size: 0.9rem; color: var(--text-dim);">Gerencia TI externa para empresas con
+                            múltiples frentes.</p>
                     </div>
                     <div class="price-card reveal">
                         <h3>Corporativo</h3>
                         <div class="price">Desde $1.25M</div>
                         <p style="margin-bottom: 2rem;">24+ horas / mes</p>
-                        <p style="font-size: 0.9rem; color: var(--text-dim);">Dedicación profunda y liderazgo tecnológico continuo.</p>
+                        <p style="font-size: 0.9rem; color: var(--text-dim);">Dedicación profunda y liderazgo
+                            tecnológico continuo.</p>
                     </div>
                 </div>
             </div>
@@ -757,8 +857,9 @@
                 <div class="contact-container reveal">
                     <div>
                         <h2 style="margin-bottom: 1.5rem;">Hablemos de tu Estrategia</h2>
-                        <p style="color: var(--text-dim); margin-bottom: 2rem;">¿Tienes un desafío tecnológico? Nuestro equipo está listo para ayudarte a encontrar la mejor solución.</p>
-                        
+                        <p style="color: var(--text-dim); margin-bottom: 2rem;">¿Tienes un desafío tecnológico? Nuestro
+                            equipo está listo para ayudarte a encontrar la mejor solución.</p>
+
                         <div style="display: flex; flex-direction: column; gap: 1.5rem;">
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <i data-lucide="mail" color="var(--primary)"></i>
@@ -770,11 +871,12 @@
                             </div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <i data-lucide="linkedin" color="var(--primary)"></i>
-                                <a href="https://www.linkedin.com/company/thinkit-spa/" style="color: inherit; text-decoration: none;">ThinkIT SpA</a>
+                                <a href="https://www.linkedin.com/company/thinkit-spa/"
+                                    style="color: inherit; text-decoration: none;">ThinkIT SpA</a>
                             </div>
                         </div>
                     </div>
-                    
+
                     <form action="https://formspree.io/f/xvgqlpaj" method="POST">
                         <div class="form-group">
                             <label>Nombre Completo</label>
@@ -786,7 +888,8 @@
                         </div>
                         <div class="form-group">
                             <label>Mensaje</label>
-                            <textarea name="message" class="form-control" rows="4" placeholder="¿En qué podemos ayudarte?"></textarea>
+                            <textarea name="message" class="form-control" rows="4"
+                                placeholder="¿En qué podemos ayudarte?"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensaje</button>
                     </form>
@@ -800,7 +903,8 @@
         <div class="container">
             <p>&copy; 2024 ThinkIT. Todos los derechos reservados.</p>
             <div style="margin-top: 1rem; margin-bottom: 1rem;">
-                <button class="open-modal-btn" style="background: none; border: none; color: var(--primary); cursor: pointer; font-weight: 600; font-family: inherit; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s ease;">
+                <button class="open-modal-btn"
+                    style="background: none; border: none; color: var(--primary); cursor: pointer; font-weight: 600; font-family: inherit; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s ease;">
                     <i data-lucide="calendar" size="18"></i>
                     Reservar una hora
                 </button>
