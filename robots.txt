@@ -1,6 +1,3 @@
-# robots.txt para thinkit.cl
-# Generado: 2025-12-02
-
 User-agent: *
 Allow: /
 
@@ -16,7 +13,3 @@ Allow: /clientes/
 
 # Sitemap
 Sitemap: https://thinkit.cl/sitemap.xml
-
-# Crawl-delay para bots agresivos
-User-agent: *
-Crawl-delay: 1
