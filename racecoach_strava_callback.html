@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conectando RaceCoach con Strava</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 36rem; margin: 4rem auto; padding: 0 1.25rem; line-height: 1.5; }
+    a { color: #005fcc; overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <h1>Volviendo a RaceCoach</h1>
+  <p id="status">Procesando autorización de Strava…</p>
+  <p><a id="open-app" hidden>Abrir RaceCoach</a></p>
+  <script>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get("code");
+      const state = params.get("state");
+      const scope = params.get("scope");
+      const error = params.get("error");
+      const status = document.getElementById("status");
+      const link = document.getElementById("open-app");
+
+      // This is a public, static OAuth redirect page: no client secret or tokens.
+      // RaceCoach MUST validate 'state' against the value stored before OAuth.
+      // Confirm that the iOS app registers the racecoach:// URL scheme.
+      const target = new URL("racecoach://exchange_token");
+      if (code) target.searchParams.set("code", code);
+      if (state) target.searchParams.set("state", state);
+      if (scope) target.searchParams.set("scope", scope);
+      if (error) target.searchParams.set("error", error);
+
+      if (!code && !error) {
+        status.textContent = "No se recibió una respuesta de autorización de Strava. Vuelve a RaceCoach e inténtalo de nuevo.";
+        return;
+      }
+      if (code && !state) {
+        status.textContent = "Falta el parámetro de seguridad de la autorización. Vuelve a RaceCoach e inténtalo de nuevo.";
+        return;
+      }
+
+      link.href = target.toString();
+      link.hidden = false;
+      link.textContent = "Abrir RaceCoach";
+      status.textContent = error
+        ? "Strava no completó la autorización. Abre RaceCoach para continuar."
+        : "Autorización recibida. Si RaceCoach no se abre automáticamente, pulsa el enlace.";
+      window.location.replace(target.toString());
+    })();
+  </script>
+</body>
+</html>
