@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RaceCoach · Your coach on your wrist</title>
+<meta name="description" content="What RaceCoach measures on Apple Watch, how it interprets it, when it speaks, and everything the iPhone does before and after every run.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a1424; --bg2:#0f1d33; --card:#13233d; --card2:#182b4a; --line:#24395c;
+  --text:#e8eef7; --muted:#9db0cc; --cyan:#3fd6f2; --orange:#ff9f2e; --red:#ff5a5f;
+  --green:#3ddc84; --blue:#4c8dff; --yellow:#ffd23f; --pink:#ff6fa8; --white:#ffffff;
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--cyan)}
+img{max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+/* Navegación */
+nav.top{position:sticky;top:0;z-index:50;background:rgba(10,20,36,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;gap:14px;height:58px}
+nav.top .links{display:flex;align-items:center;gap:18px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;mask-image:linear-gradient(90deg,#000 85%,transparent)}
+nav.top .links::-webkit-scrollbar{display:none}
+.brand{font-weight:800;letter-spacing:.2px;white-space:nowrap;color:var(--text);text-decoration:none}
+.brand span{color:var(--cyan)}
+nav.top a.l{color:var(--muted);text-decoration:none;font-size:14px;white-space:nowrap;padding:6px 2px;border-bottom:2px solid transparent}
+nav.top a.l.on{color:var(--text);border-color:var(--cyan)}
+/* Portada */
+header.hero{padding:72px 0 40px;background:radial-gradient(1200px 500px at 70% -10%,rgba(63,214,242,.18),transparent 60%),radial-gradient(800px 400px at 0% 10%,rgba(255,159,46,.10),transparent 60%)}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+.kicker{display:inline-block;font-size:13px;font-weight:600;color:var(--cyan);background:rgba(63,214,242,.12);padding:6px 12px;border-radius:999px;margin-bottom:16px}
+h1{font-size:clamp(34px,5vw,56px);line-height:1.05;margin:0 0 18px;font-weight:800;letter-spacing:-.5px}
+h1 em{font-style:normal;color:var(--cyan)}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--muted);max-width:620px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.pill{font-size:13px;padding:6px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--muted)}
+section{padding:64px 0;border-top:1px solid var(--line)}
+section:nth-of-type(even){background:var(--bg2)}
+h2{font-size:clamp(26px,3.4vw,38px);margin:0 0 10px;letter-spacing:-.3px}
+h2 small{display:block;font-size:14px;font-weight:600;color:var(--cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+h3{font-size:20px;margin:0 0 8px}
+p.sub{color:var(--muted);max-width:760px;margin:0 0 28px;font-size:17px}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.card p{margin:.3em 0;color:var(--muted)}
+.card .ico{font-size:26px;line-height:1;margin-bottom:10px}
+.card h3{margin-top:0}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;margin-right:6px}
+.t-c{background:rgba(63,214,242,.15);color:var(--cyan)}
+.t-o{background:rgba(255,159,46,.15);color:var(--orange)}
+.t-g{background:rgba(61,220,132,.15);color:var(--green)}
+.t-r{background:rgba(255,90,95,.15);color:var(--red)}
+.t-y{background:rgba(255,210,63,.15);color:var(--yellow)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:s}
+.step{position:relative;padding-top:52px}
+.step:before{counter-increment:s;content:counter(s);position:absolute;top:18px;left:22px;width:28px;height:28px;border-radius:50%;background:var(--cyan);color:#06202a;font-weight:800;display:grid;place-items:center;font-size:15px}
+.callout{border-left:4px solid var(--cyan);background:rgba(63,214,242,.07);padding:14px 18px;border-radius:0 12px 12px 0;color:var(--text);margin:18px 0}
+.callout.o{border-color:var(--orange);background:rgba(255,159,46,.07)}
+.list{margin:.4em 0 0;padding-left:1.1em;color:var(--muted)}
+.list li{margin:.25em 0}
+.list b{color:var(--text);font-weight:600}
+/* Reloj */
+.watch{width:220px;height:264px;margin:0 auto;border-radius:58px;background:#000;border:10px solid #2a2f38;box-shadow:0 0 0 2px #444b57,0 30px 60px rgba(0,0,0,.5),inset 0 0 0 1px #111;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;overflow:hidden}
+.watch:after{content:"";position:absolute;right:-18px;top:70px;width:10px;height:44px;border-radius:6px;background:#3a414c}
+.w-head{font-size:10.5px;font-weight:700;letter-spacing:.6px;padding:3px 10px;border-radius:999px;margin-bottom:6px;transition:.3s;white-space:nowrap}
+.w-main{display:flex;flex-direction:column;align-items:center;transition:.3s}
+.w-val{font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+.w-lab{font-size:10px;font-weight:700;color:#8b97aa;letter-spacing:.6px}
+.w-row{display:flex;gap:18px;margin-top:8px}
+.w-ctx{display:flex;gap:10px;margin-top:8px;font-size:11px;font-weight:700}
+.w-prof{position:absolute;left:0;right:0;bottom:22px;height:46px;opacity:.45}
+/* Simuladores */
+.sim{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:22px;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.sim h3{display:flex;align-items:center;gap:8px}
+.badge-sim{font-size:11px;font-weight:800;letter-spacing:1px;color:#06202a;background:var(--yellow);padding:3px 8px;border-radius:6px}
+label.ctl{display:block;font-size:14px;color:var(--muted);margin:14px 0 6px}
+label.ctl b{color:var(--text)}
+input[type=range]{width:100%;accent-color:var(--cyan)}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{background:var(--bg2);border:1px solid var(--line);color:var(--muted);padding:7px 11px;border-radius:10px;font:inherit;font-size:13px;cursor:pointer}
+.seg button.on{background:rgba(63,214,242,.15);border-color:var(--cyan);color:var(--text)}
+.dim{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:10px;margin:10px 0}
+.dim span{font-size:14px}
+.gauge{position:relative;width:200px;height:200px;margin:0 auto}
+.gauge svg{transform:rotate(-90deg)}
+.gauge .num{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.gauge .num b{font-size:48px;font-weight:800;line-height:1}
+.gauge .num small{display:block;color:var(--muted);font-size:13px}
+.level{text-align:center;font-weight:700;margin-top:10px;font-size:18px}
+.bubble{background:#1d2a40;border:1px solid var(--line);border-radius:16px 16px 16px 4px;padding:14px 16px;font-size:15px;min-height:70px;position:relative}
+.bubble.silent{color:var(--muted);font-style:italic}
+.why{font-size:13px;color:var(--muted);margin-top:10px}
+/* Línea de tiempo */
+.timeline{position:relative;margin-top:10px}
+.tl-item{display:grid;grid-template-columns:90px 1fr;gap:16px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.tl-item:last-child{border-bottom:0}
+.tl-t{font-weight:800;color:var(--cyan);font-variant-numeric:tabular-nums}
+.tl-msg{color:var(--text)}
+.tl-msg small{display:block;color:var(--muted)}
+/* Teléfono */
+.phone{width:240px;margin:0 auto;border-radius:38px;border:10px solid #2a2f38;background:#0d1a2e;box-shadow:0 30px 60px rgba(0,0,0,.45);padding:18px 14px;min-height:430px}
+.ph-t{font-size:12px;color:var(--muted);text-align:center;margin-bottom:10px}
+.ph-card{background:#15284a;border-radius:14px;padding:12px;margin-bottom:10px}
+.ph-card .h{font-size:12px;color:var(--muted)}
+.ph-big{font-size:34px;font-weight:800}
+.bar{height:6px;border-radius:4px;background:#22385c;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--cyan)}
+.chat{display:flex;flex-direction:column;gap:8px;font-size:12.5px}
+.chat .u{align-self:flex-end;background:var(--cyan);color:#062028;border-radius:12px 12px 2px 12px;padding:8px 10px;max-width:85%}
+.chat .a{align-self:flex-start;background:#15284a;border-radius:12px 12px 12px 2px;padding:8px 10px;max-width:92%}
+.chat .a b{color:var(--yellow)}
+/* Exportación */
+.flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.node{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-weight:600;font-size:14px;transition:.3s}
+.node.ok{border-color:var(--green);box-shadow:0 0 0 3px rgba(61,220,132,.15)}
+.node.skip{border-color:var(--orange)}
+.arrow{color:var(--muted)}
+button.go{background:var(--cyan);color:#062028;border:0;padding:11px 18px;border-radius:12px;font:inherit;font-weight:700;cursor:pointer}
+button.go:hover{filter:brightness(1.08)}
+/* Glosario */
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:10px 0}
+details summary{cursor:pointer;font-weight:700;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary:after{content:"+";float:right;color:var(--cyan);font-weight:800}
+details[open] summary:after{content:"–"}
+details p{color:var(--muted);margin:.6em 0 0}
+footer{padding:40px 0 60px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media (max-width:860px){
+  .hero-grid,.sim{grid-template-columns:1fr}
+  .g3,.g4,.steps{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .g2,.g3,.g4,.steps{grid-template-columns:1fr}
+  .dim{grid-template-columns:1fr}
+  section{padding:48px 0}
+}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* Idioma: sin JavaScript se ve en inglés */
+body:not(.lang-es) .es{display:none!important}
+body.lang-es .en{display:none!important}
+.langsw{display:flex;flex-shrink:0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.langsw button{background:transparent;border:0;color:var(--muted);font:inherit;font-size:13px;font-weight:700;padding:6px 11px;cursor:pointer}
+.langsw button.on{background:var(--cyan);color:#062028}
+</style>
+</head>
+<body>
+
+<nav class="top" aria-label="Sections">
+  <div class="wrap">
+    <a class="brand" href="#inicio">Race<span>Coach</span></a>
+    <div class="links">
+    <a class="l" href="#resumen"><span class="es">En 30 segundos</span><span class="en">In 30 seconds</span></a>
+    <a class="l" href="#antes"><span class="es">Antes de correr</span><span class="en">Before the run</span></a>
+    <a class="l" href="#durante"><span class="es">Durante la carrera</span><span class="en">During the run</span></a>
+    <a class="l" href="#coach"><span class="es">El coach</span><span class="en">The coach</span></a>
+    <a class="l" href="#despues"><span class="es">Después</span><span class="en">After</span></a>
+    <a class="l" href="#ia"><span class="es">Análisis IA</span><span class="en">AI analysis</span></a>
+    <a class="l" href="#conexiones"><span class="es">Conexiones</span><span class="en">Connections</span></a>
+    <a class="l" href="#ajustes"><span class="es">Ajustes</span><span class="en">Settings</span></a>
+    <a class="l" href="#glosario"><span class="es">Glosario</span><span class="en">Glossary</span></a>
+    </div>
+    <div class="langsw" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="inicio">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker"><span class="es">Apple Watch + iPhone · running y trail</span><span class="en">Apple Watch + iPhone · road and trail running</span></span>
+      <h1 class="es">Un entrenador que <em>corre contigo</em>, te escucha y habla solo cuando vale la pena.</h1>
+      <h1 class="en">A coach that <em>runs with you</em>, listens, and only speaks when it matters.</h1>
+      <p class="lead es">RaceCoach lee cómo llegas a correr, observa en tiempo real tu pulso, tu potencia, tu forma de correr y el terreno, y te da consejos breves por voz. Después, te ayuda a entender qué pasó.</p>
+      <p class="lead en">RaceCoach reads how ready you are, watches your heart rate, power, running form and terrain in real time, and gives you short spoken tips. Afterwards, it helps you understand what happened.</p>
+      <div class="pills">
+        <span class="pill"><span class="es">⌚ Coach por voz en el reloj</span><span class="en">⌚ Voice coach on your wrist</span></span>
+        <span class="pill"><span class="es">❤️ Preparación diaria desde Salud</span><span class="en">❤️ Daily readiness from Health</span></span>
+        <span class="pill"><span class="es">⛰️ Subidas, bajadas y rutas GPX</span><span class="en">⛰️ Climbs, descents and GPX routes</span></span>
+        <span class="pill"><span class="es">🤖 Análisis con IA</span><span class="en">🤖 AI analysis</span></span>
+        <span class="pill">🔁 Strava · Stryd · Intervals.icu</span>
+      </div>
+    </div>
+    <div>
+      <div class="watch" aria-hidden="true">
+        <div class="w-head" style="background:rgba(61,220,132,.18);color:var(--green)"><span class="es">MANTÉN</span><span class="en">HOLD</span></div>
+        <div class="w-main"><div class="w-val" style="font-size:54px;color:var(--orange)">238<span style="font-size:15px"> W</span></div><div class="w-lab"><span class="es">POTENCIA</span><span class="en">POWER</span></div></div>
+        <div class="w-row">
+          <div class="w-main"><div class="w-val" style="font-size:26px;color:var(--cyan)">4:52</div><div class="w-lab"><span class="es">RITMO</span><span class="en">PACE</span></div></div>
+          <div class="w-main"><div class="w-val" style="font-size:26px;color:var(--red)">156</div><div class="w-lab"><span class="es">FC</span><span class="en">HR</span></div></div>
+        </div>
+        <div class="w-ctx"><span style="color:var(--orange)">12.4</span><span style="color:var(--green)">+214</span><span style="color:var(--blue)">58:10</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- RESUMEN -->
+<section id="resumen">
+  <div class="wrap reveal">
+    <h2><small><span class="es">La idea</span><span class="en">The idea</span></small><span class="es">RaceCoach en 30 segundos</span><span class="en">RaceCoach in 30 seconds</span></h2>
+    <p class="sub es">Tres momentos, dos dispositivos y una sola idea: que corras mejor sin tener que mirar números todo el tiempo.</p>
+    <p class="sub en">Three moments, two devices and one idea: help you run better without staring at numbers all the time.</p>
+    <div class="steps">
+      <div class="card step">
+        <h3><span class="es">📱 Antes: el iPhone prepara</span><span class="en">📱 Before: the iPhone gets you ready</span></h3>
+        <p class="es">Lee tu sueño, tu pulso en reposo, tu variabilidad cardíaca y tu carga reciente desde Salud, y te pregunta cómo amaneciste. Con eso calcula tu <b>preparación del día</b> y se la pasa al reloj.</p>
+        <p class="en">It reads your sleep, resting heart rate, heart rate variability and recent training load from Health, and asks how you feel. With that it works out your <b>readiness for the day</b> and sends it to the watch.</p>
+      </div>
+      <div class="card step">
+        <h3><span class="es">⌚ Durante: el reloj acompaña</span><span class="en">⌚ During: the watch runs with you</span></h3>
+        <p class="es">Mide todo en tiempo real, lo compara con <b>tu propio historial</b> y decide si hay algo útil que decirte. Si todo va bien, guarda silencio o te lo confirma.</p>
+        <p class="en">It measures everything in real time, compares it with <b>your own history</b> and decides whether there's something useful to say. If all is well, it stays quiet or tells you so.</p>
+      </div>
+      <div class="card step">
+        <h3><span class="es">📱 Después: el iPhone explica</span><span class="en">📱 After: the iPhone explains</span></h3>
+        <p class="es">Guarda la carrera con todo el detalle, te deja marcar tramos, la exporta a tus servicios favoritos y conversa contigo con IA para entender <b>qué pasó y por qué</b>.</p>
+        <p class="en">It saves the run in full detail, lets you mark sections, exports it to your favorite services and chats with you using AI to understand <b>what happened and why</b>.</p>
+      </div>
+    </div>
+    <div class="callout es">El principio de diseño: <b>tus datos contra tus datos</b>. RaceCoach no te compara con un “corredor promedio”: aprende tus referencias (tu pulso habitual, tu potencia en subida, tu ritmo en bajada) y te avisa cuando algo se aleja de lo normal <i>para ti</i>.</div>
+    <div class="callout en">The design principle: <b>your data against your data</b>. RaceCoach doesn't compare you with an “average runner”: it learns your own references (your usual heart rate, your climbing power, your descending pace) and tells you when something drifts away from what's normal <i>for you</i>.</div>
+  </div>
+</section>
+
+<!-- ANTES -->
+<section id="antes">
+  <div class="wrap reveal">
+    <h2><small><span class="es">iPhone · antes de correr</span><span class="en">iPhone · before the run</span></small><span class="es">¿Cómo llego hoy?</span><span class="en">How ready am I today?</span></h2>
+    <p class="sub es">Cada mañana el iPhone arma la pantalla <b>“Antes de salir”</b>. Si ya corriste ese día, cambia a <b>“Después de tu carrera”</b> y te muestra a qué hora saliste.</p>
+    <p class="sub en">Every morning the iPhone builds the <b>“Before you go”</b> screen. If you've already run that day, it switches to <b>“After your run”</b> and shows what time you started.</p>
+
+    <div class="grid g4">
+      <div class="card"><div class="ico">💓</div>
+        <h3><span class="es">Recuperación cardiovascular</span><span class="en">Cardiovascular recovery</span></h3>
+        <p class="es">Variabilidad cardíaca (HRV), pulso en reposo y, de apoyo, respiración y oxígeno nocturno. Cada valor se compara con tu propia base de 28 días.</p>
+        <p class="en">Heart rate variability (HRV), resting heart rate and, as support, overnight breathing and blood oxygen. Each value is compared with your own 28-day baseline.</p></div>
+      <div class="card"><div class="ico">😴</div>
+        <h3><span class="es">Sueño</span><span class="en">Sleep</span></h3>
+        <p class="es">Horas de la última noche y tendencia. Dormir un poco menos que tu base no es alarma; dormir menos de 5 horas sí cuenta.</p>
+        <p class="en">Last night's hours and the trend. Sleeping a bit less than usual isn't an alarm; under 5 hours does count.</p></div>
+      <div class="card"><div class="ico">🏋️</div>
+        <h3><span class="es">Fatiga de entrenamiento</span><span class="en">Training fatigue</span></h3>
+        <p class="es">Relación entre tu carga de la última semana y la de las últimas 6 (ATL/CTL), calculada desde tus entrenamientos en Salud.</p>
+        <p class="en">How your last week's load compares with the last 6 weeks (ATL/CTL), calculated from your workouts in Health.</p></div>
+      <div class="card"><div class="ico">⛰️</div>
+        <h3><span class="es">Carga muscular / trail</span><span class="en">Muscular / trail load</span></h3>
+        <p class="es">Desnivel acumulado en los últimos 7 días contra tu semana típica. Mucho más desnivel que lo normal = piernas más cargadas.</p>
+        <p class="en">Elevation gain over the last 7 days against your typical week. Much more climbing than usual = more tired legs.</p></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card">
+        <h3><span class="es">📝 Check-in diario</span><span class="en">📝 Daily check-in</span></h3>
+        <p class="es">La primera vez que abres la app en el día te pregunta, en dos toques, tu <b>fatiga</b> y tu <b>dolor muscular</b> (1 a 5). Un dolor alto pesa en la carga muscular; una fatiga de 4 o 5 cuenta como señal adversa.</p>
+        <p class="en">The first time you open the app each day, it asks for your <b>fatigue</b> and <b>muscle soreness</b> (1 to 5) in two taps. High soreness weighs on muscular load; fatigue of 4 or 5 counts as a warning sign.</p></div>
+      <div class="card">
+        <h3><span class="es">🧠 Un número, sin dramatismo</span><span class="en">🧠 One number, no drama</span></h3>
+        <p class="es">Todo se resume en un <b>% de recuperación</b> y un mensaje: <span class="tag t-g">Listo para correr</span><span class="tag t-y">Conviene moderar</span><span class="tag t-r">Prioriza recuperación</span>. Una sola señal floja no te manda a descansar: se necesita que varias coincidan.</p>
+        <p class="en">Everything is summed up in a <b>recovery %</b> and a message: <span class="tag t-g">Ready to run</span><span class="tag t-y">Take it easier</span><span class="tag t-r">Prioritize recovery</span>. One weak signal won't send you to rest: several have to agree.</p></div>
+    </div>
+
+    <div class="sim" style="margin-top:26px" id="simPrep">
+      <div>
+        <h3><span class="badge-sim"><span class="es">SIMULADOR</span><span class="en">SIMULATOR</span></span> <span class="es">Juega con tu preparación</span><span class="en">Play with your readiness</span></h3>
+        <p class="es" style="color:var(--muted);margin-top:0">Elige cómo está cada señal y mira cómo cambia el resultado. Usa las mismas reglas que la app: cada señal pesa distinto y las que no tienen datos simplemente no cuentan.</p>
+        <p class="en" style="color:var(--muted);margin-top:0">Choose how each signal looks and watch the result change. It uses the same rules as the app: each signal has its own weight, and the ones without data simply don't count.</p>
+        <div id="dims"></div>
+      </div>
+      <div>
+        <div class="gauge">
+          <svg width="200" height="200" viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="100" cy="100" r="84" fill="none" stroke="#22385c" stroke-width="16"/>
+            <circle id="gArc" cx="100" cy="100" r="84" fill="none" stroke="#3ddc84" stroke-width="16" stroke-linecap="round" stroke-dasharray="527.8" stroke-dashoffset="0" style="transition:stroke-dashoffset .5s,stroke .5s"/>
+          </svg>
+          <div class="num"><div><b id="gNum">100%</b><small><span class="es">recuperación</span><span class="en">recovery</span></small></div></div>
+        </div>
+        <div class="level" id="gLevel"></div>
+        <p class="why" id="gWhy" style="text-align:center"></p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:40px"><span class="es">🧬 El perfil del corredor</span><span class="en">🧬 The runner profile</span></h3>
+    <p class="sub es" style="margin-bottom:18px">Con tus últimos 90 días de carreras, el iPhone construye tu perfil. Es lo que permite que el reloj sepa qué es “normal” para ti. Se crea una vez y luego se actualiza solo con cada carrera nueva.</p>
+    <p class="sub en" style="margin-bottom:18px">From your last 90 days of runs, the iPhone builds your profile. That's how the watch knows what “normal” means for you. It's created once and then updates itself with every new run.</p>
+    <div class="grid g3">
+      <div class="card">
+        <h3><span class="es">⚡ Capacidad</span><span class="en">⚡ Capacity</span></h3>
+        <p class="es">Cuánta potencia sostienes de 1 a 60 minutos, fresco y después de horas corriendo (durabilidad). Sirve para saber si te queda reserva en carrera.</p>
+        <p class="en">How much power you can hold from 1 to 60 minutes, fresh and after hours of running (durability). It tells whether you still have reserve during a race.</p></div>
+      <div class="card">
+        <h3><span class="es">📈 VAM por pendiente</span><span class="en">📈 VAM by gradient</span></h3>
+        <p class="es">Tu velocidad vertical típica en cada tipo de subida y bajada. Con eso se estiman tiempos de rutas y se juzga si una subida va bien.</p>
+        <p class="en">Your typical vertical speed on each kind of climb and descent. It's used to estimate route times and judge how a climb is going.</p></div>
+      <div class="card">
+        <h3><span class="es">🦵 Perfil mecánico</span><span class="en">🦵 Mechanical profile</span></h3>
+        <p class="es">Tu cadencia, zancada, contacto con el suelo y oscilación habituales para cada esfuerzo y pendiente. Así se detectan cambios en tu forma de correr.</p>
+        <p class="en">Your usual cadence, stride, ground contact and vertical oscillation for each effort and gradient. That's how changes in your running form are detected.</p></div>
+    </div>
+    <div class="callout o es">¿Recién instalas la app y no tienes mucho historial? No pasa nada: el perfil se crea <b>con lo que haya</b> y se va completando solo a medida que corres.</div>
+    <div class="callout o en">Just installed the app and don't have much history? No problem: the profile is built <b>with whatever is available</b> and fills in as you run.</div>
+  </div>
+</section>
+
+<!-- DURANTE -->
+<section id="durante">
+  <div class="wrap reveal">
+    <h2><small><span class="es">Reloj · en tiempo real</span><span class="en">Watch · in real time</span></small><span class="es">Qué mide el reloj mientras corres</span><span class="en">What the watch measures while you run</span></h2>
+    <p class="sub es">Varias veces por segundo, el reloj junta lo que leen sus sensores y, si lo tienes, un pod Stryd en la zapatilla.</p>
+    <p class="sub en">Several times per second, the watch combines its own sensors and, if you have one, a Stryd pod on your shoe.</p>
+    <div class="grid g4">
+      <div class="card"><div class="ico">🛰️</div><h3>GPS</h3>
+        <p class="es">Posición, distancia y velocidad. Se combina con Stryd para que el ritmo no salte bajo árboles o entre edificios.</p>
+        <p class="en">Position, distance and speed. Combined with Stryd so your pace doesn't jump under trees or between buildings.</p></div>
+      <div class="card"><div class="ico">❤️</div><h3><span class="es">Pulso</span><span class="en">Heart rate</span></h3>
+        <p class="es">Frecuencia cardíaca y tus zonas personales, calculadas con tu FC en reposo y tu FC máxima.</p>
+        <p class="en">Heart rate and your personal zones, based on your resting and maximum heart rate.</p></div>
+      <div class="card"><div class="ico">⚡</div><h3><span class="es">Potencia</span><span class="en">Power</span></h3>
+        <p class="es">Los vatios que produces. Es la medida de esfuerzo más inmediata: no se retrasa como el pulso.</p>
+        <p class="en">The watts you produce. It's the most immediate measure of effort: it doesn't lag like heart rate.</p></div>
+      <div class="card"><div class="ico">🦶</div><h3><span class="es">Forma de correr</span><span class="en">Running form</span></h3>
+        <p class="es">Cadencia, largo de zancada, tiempo de contacto con el suelo y oscilación vertical.</p>
+        <p class="en">Cadence, stride length, ground contact time and vertical oscillation.</p></div>
+      <div class="card"><div class="ico">🏔️</div><h3><span class="es">Altitud y pendiente</span><span class="en">Altitude and gradient</span></h3>
+        <p class="es">Barómetro calibrado con GPS: desnivel acumulado y pendiente en cada momento.</p>
+        <p class="en">Barometer calibrated with GPS: total climbing and the gradient at every moment.</p></div>
+      <div class="card"><div class="ico">🧭</div><h3><span class="es">Terreno</span><span class="en">Terrain</span></h3>
+        <p class="es">Con la pendiente decide si vas en <b>llano</b>, <b>subida</b> o <b>bajada</b>, con un margen para no cambiar por cada bache.</p>
+        <p class="en">From the gradient it decides whether you're on <b>flat</b>, <b>climbing</b> or <b>descending</b>, with a margin so it doesn't flip on every bump.</p></div>
+      <div class="card"><div class="ico">🗺️</div><h3><span class="es">Ruta GPX</span><span class="en">GPX route</span></h3>
+        <p class="es">Si cargas una ruta: dónde estás en ella, qué subida viene, cuánto falta para la cima y para la meta.</p>
+        <p class="en">If you load a route: where you are on it, which climb is coming, how far to the top and to the finish.</p></div>
+      <div class="card"><div class="ico">🗣️</div><h3><span class="es">Tu sensación</span><span class="en">How you feel</span></h3>
+        <p class="es">A los 20 minutos, y luego cada 30, te pregunta cómo vas: <b>bien</b>, <b>duro</b> o <b>muy duro</b>.</p>
+        <p class="en">At 20 minutes, and then every 30, it asks how it feels: <b>good</b>, <b>hard</b> or <b>very hard</b>.</p></div>
+    </div>
+
+    <div class="sim" style="margin-top:26px">
+      <div>
+        <h3><span class="badge-sim"><span class="es">SIMULADOR</span><span class="en">SIMULATOR</span></span> <span class="es">La pantalla cambia con el terreno</span><span class="en">The screen follows the terrain</span></h3>
+        <p class="es" style="color:var(--muted);margin-top:0">Mueve la pendiente y el ritmo. El reloj muestra métricas distintas en llano, subida y bajada (y tú puedes elegir cuáles en el iPhone). Mira cómo el <b>GAP</b> traduce tu ritmo real a su equivalente en plano.</p>
+        <p class="en" style="color:var(--muted);margin-top:0">Move the gradient and the pace. The watch shows different metrics on flat, climbs and descents (and you can choose which ones on the iPhone). See how <b>GAP</b> turns your real pace into its flat-ground equivalent.</p>
+        <label class="ctl" for="slGrade"><span class="es">Pendiente:</span><span class="en">Gradient:</span> <b id="lbGrade">0 %</b></label>
+        <input id="slGrade" type="range" min="-25" max="25" value="0">
+        <label class="ctl" for="slPace"><span class="es">Ritmo real:</span><span class="en">Actual pace:</span> <b id="lbPace">5:00 /km</b></label>
+        <input id="slPace" type="range" min="210" max="720" value="300" step="5">
+        <label class="ctl"><span class="es">Perfil de elevación detrás de las métricas (trail)</span><span class="en">Elevation profile behind the metrics (trail)</span></label>
+        <div class="seg" id="segProf"><button class="on" data-v="1"><span class="es">Mostrar</span><span class="en">Show</span></button><button data-v="0"><span class="es">Ocultar</span><span class="en">Hide</span></button></div>
+      </div>
+      <div>
+        <div class="watch" id="simWatch">
+          <svg class="w-prof" id="wProf" viewBox="0 0 200 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 L20 34 L40 36 L60 22 L80 12 L100 18 L120 8 L140 20 L160 26 L180 18 L200 30 L200 46 L0 46Z" fill="rgba(61,220,132,.25)" stroke="#3ddc84" stroke-width="1.5"/></svg>
+          <div class="w-head" id="wHead" style="background:rgba(63,214,242,.15);color:var(--cyan)"></div>
+          <div class="w-main"><div class="w-val" id="wC" style="font-size:52px">—</div><div class="w-lab" id="wCl">—</div></div>
+          <div class="w-row">
+            <div class="w-main"><div class="w-val" id="wL" style="font-size:24px">—</div><div class="w-lab" id="wLl">—</div></div>
+            <div class="w-main"><div class="w-val" id="wR" style="font-size:24px">—</div><div class="w-lab" id="wRl">—</div></div>
+          </div>
+          <div class="w-ctx"><span style="color:var(--orange)">8.42</span><span style="color:var(--green)">+312</span><span style="color:var(--blue)">42:10</span></div>
+        </div>
+        <p class="why" id="wWhy" style="text-align:center"></p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:40px"><span class="es">🔍 Cómo lo interpreta: tres “motores”</span><span class="en">🔍 How it reads the data: three “engines”</span></h3>
+    <p class="sub es" style="margin-bottom:18px">El reloj no reacciona a un número suelto. Mira tendencias de varios minutos y las compara con tu propio comienzo de carrera y con tu historial.</p>
+    <p class="sub en" style="margin-bottom:18px">The watch doesn't react to a single number. It looks at trends over several minutes and compares them with the start of your own run and with your history.</p>
+    <div class="grid g3">
+      <div class="card"><span class="tag t-r"><span class="es">Cardiovascular</span><span class="en">Cardiovascular</span></span>
+        <h3 style="margin-top:10px"><span class="es">¿Tu pulso se dispara?</span><span class="en">Is your heart rate running away?</span></h3>
+        <p class="es">Si para el mismo esfuerzo tu pulso sube más de lo esperado (deriva cardíaca), es una señal temprana de que conviene regular.</p>
+        <p class="en">If your heart rate rises more than expected for the same effort (cardiac drift), it's an early sign that it's time to ease off.</p></div>
+      <div class="card"><span class="tag t-c"><span class="es">Mecánico</span><span class="en">Mechanical</span></span>
+        <h3 style="margin-top:10px"><span class="es">¿Cambia tu forma de correr?</span><span class="en">Is your running form changing?</span></h3>
+        <p class="es">Si la cadencia cae, la zancada se acorta o pasas más tiempo en el suelo que lo habitual para esa potencia y pendiente, tu técnica está cambiando.</p>
+        <p class="en">If cadence drops, your stride shortens or you spend more time on the ground than usual for that power and gradient, your form is changing.</p></div>
+      <div class="card"><span class="tag t-o"><span class="es">Rendimiento</span><span class="en">Performance</span></span>
+        <h3 style="margin-top:10px"><span class="es">¿Avanzas menos por igual esfuerzo?</span><span class="en">Covering less ground for the same effort?</span></h3>
+        <p class="es">Si empujas lo mismo pero recorres menos en un tramo comparable, estás perdiendo eficiencia.</p>
+        <p class="en">If you push just as hard but cover less ground on a comparable stretch, you're losing efficiency.</p></div>
+    </div>
+    <div class="callout es">Además, en trail el reloj es más prudente: una subida técnica o una bajada con piedras cambian la mecánica sin que sea fatiga. Por eso exige más evidencia antes de hablar y usa tu respuesta de “bien / duro / muy duro” para desempatar.</div>
+    <div class="callout en">On trails the watch is more careful: a technical climb or a rocky descent changes your mechanics without it being fatigue. So it asks for more evidence before speaking, and uses your “good / hard / very hard” answer as a tie-breaker.</div>
+  </div>
+</section>
+
+<!-- COACH -->
+<section id="coach">
+  <div class="wrap reveal">
+    <h2><small><span class="es">Reloj · las decisiones</span><span class="en">Watch · the decisions</span></small><span class="es">Cuándo habla el coach (y cuándo se calla)</span><span class="en">When the coach speaks (and when it stays quiet)</span></h2>
+    <p class="sub es">Un coach que habla todo el tiempo se vuelve ruido. RaceCoach sigue unas reglas simples para que cada mensaje valga la pena.</p>
+    <p class="sub en">A coach that talks all the time becomes noise. RaceCoach follows a few simple rules so every message is worth hearing.</p>
+    <div class="grid g3">
+      <div class="card"><h3><span class="es">⏳ Paciencia</span><span class="en">⏳ Patience</span></h3>
+        <p class="es">Una señal tiene que mantenerse más de un minuto antes de que el coach diga algo. Un pico aislado no cuenta.</p>
+        <p class="en">A signal has to last more than a minute before the coach says anything. A single spike doesn't count.</p></div>
+      <div class="card"><h3><span class="es">🔁 Seguimiento</span><span class="en">🔁 Follow-up</span></h3>
+        <p class="es">Si te pide aflojar, te acompaña los siguientes 10 minutos: confirma si respondiste, si te estás recuperando o si hace falta insistir.</p>
+        <p class="en">If it asks you to ease off, it follows you for the next 10 minutes: it checks whether you responded, whether you're recovering, or whether it needs to insist.</p></div>
+      <div class="card"><h3><span class="es">🤫 Sin repetir</span><span class="en">🤫 No repeating</span></h3>
+        <p class="es">Hay pausas mínimas entre mensajes, y los consejos de terreno no se repiten en cada subida o bajada.</p>
+        <p class="en">There are minimum gaps between messages, and terrain tips aren't repeated on every climb or descent.</p></div>
+      <div class="card"><h3><span class="es">🛡️ La seguridad primero</span><span class="en">🛡️ Safety first</span></h3>
+        <p class="es">Si varias señales se alteran a la vez, eso tiene prioridad sobre cualquier consejo de ritmo o de terreno.</p>
+        <p class="en">If several signals change at once, that takes priority over any pacing or terrain tip.</p></div>
+      <div class="card"><h3><span class="es">⛰️ Terreno</span><span class="en">⛰️ Terrain</span></h3>
+        <p class="es">En subidas: no persigas el ritmo, acorta la zancada, usa los brazos. En bajadas suaves: aprovéchalas con cadencia alta. En bajadas empinadas (más de 14 %): pasos cortos.</p>
+        <p class="en">On climbs: don't chase the pace, shorten your stride, use your arms. On gentle descents: make the most of them with high cadence. On steep descents (over 14%): short steps.</p></div>
+      <div class="card"><h3><span class="es">🗺️ Con ruta GPX</span><span class="en">🗺️ With a GPX route</span></h3>
+        <p class="es">Te anticipa una subida importante, te avisa al coronar, cuándo viene la última subida, y lee los mensajes que tú dejaste en puntos de la ruta.</p>
+        <p class="en">It warns you about a big climb ahead, tells you when you reach the top and when the last climb is coming, and reads out the messages you left at points along the route.</p></div>
+    </div>
+
+    <h3 style="margin-top:36px"><span class="es">🎯 Modos de carrera</span><span class="en">🎯 Run modes</span></h3>
+    <div class="grid g3">
+      <div class="card"><span class="tag t-o"><span class="es">Darlo todo</span><span class="en">All out</span></span>
+        <p class="es">Para competir a una distancia. Parte con control y, cuando tu reserva lo permite, te pide apretar. En los últimos minutos no te pedirá aflojar por pequeñas pérdidas de eficiencia: te recuerda la técnica y te empuja a la meta.</p>
+        <p class="en">For racing a set distance. It starts controlled and, when your reserve allows, asks you to push. In the final minutes it won't ask you to ease off for small efficiency losses: it reminds you of your form and pushes you to the finish.</p></div>
+      <div class="card"><span class="tag t-r"><span class="es">Zona de pulso</span><span class="en">Heart rate zone</span></span>
+        <p class="es">Eliges una zona (por ejemplo Z2) y el coach te avisa solo si te quedas fuera de ella, sin perseguir el pulso de golpe.</p>
+        <p class="en">You pick a zone (for example Z2) and the coach only speaks up if you stay outside it, without chasing your heart rate abruptly.</p></div>
+      <div class="card"><span class="tag t-c"><span class="es">Pista</span><span class="en">Track</span></span>
+        <p class="es">Marcas cada tramo con un toque y, al terminarlo, ves su resumen en el reloj: ideal para series.</p>
+        <p class="en">Mark each rep with a tap and see its summary on the watch when you finish it: ideal for intervals.</p></div>
+    </div>
+
+    <div class="sim" style="margin-top:26px">
+      <div>
+        <h3><span class="badge-sim"><span class="es">SIMULADOR</span><span class="en">SIMULATOR</span></span> <span class="es">¿Qué diría el coach?</span><span class="en">What would the coach say?</span></h3>
+        <p class="es" style="color:var(--muted);margin-top:0">Arma una situación y escucha la decisión. Es una versión simplificada de las reglas reales.</p>
+        <p class="en" style="color:var(--muted);margin-top:0">Set up a situation and hear the decision. It's a simplified version of the real rules.</p>
+        <label class="ctl"><span class="es">Modo</span><span class="en">Mode</span></label>
+        <div class="seg" data-k="mode"><button class="on" data-v="free"><span class="es">Libre</span><span class="en">Free run</span></button><button data-v="allout"><span class="es">Darlo todo</span><span class="en">All out</span></button></div>
+        <label class="ctl"><span class="es">Terreno</span><span class="en">Terrain</span></label>
+        <div class="seg" data-k="terrain"><button class="on" data-v="flat"><span class="es">Llano</span><span class="en">Flat</span></button><button data-v="up"><span class="es">Subida</span><span class="en">Climb</span></button><button data-v="softdown"><span class="es">Bajada suave</span><span class="en">Gentle descent</span></button><button data-v="steepdown"><span class="es">Bajada empinada</span><span class="en">Steep descent</span></button></div>
+        <label class="ctl"><span class="es">Qué está pasando</span><span class="en">What's happening</span></label>
+        <div class="seg" data-k="signal"><button class="on" data-v="none"><span class="es">Todo estable</span><span class="en">All steady</span></button><button data-v="hr"><span class="es">Pulso subiendo</span><span class="en">Heart rate rising</span></button><button data-v="perf"><span class="es">Avanzo menos</span><span class="en">Covering less ground</span></button><button data-v="multi"><span class="es">Varias señales</span><span class="en">Several signals</span></button></div>
+        <label class="ctl" for="slLeft"><span class="es">Tiempo para la meta:</span><span class="en">Time to the finish:</span> <b id="lbLeft">30 min</b></label>
+        <input id="slLeft" type="range" min="1" max="60" value="30">
+      </div>
+      <div>
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <div style="font-size:28px">⌚</div>
+          <div class="bubble" id="coachMsg"></div>
+        </div>
+        <p class="why" id="coachWhy"></p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:36px"><span class="es">🏃 Una carrera de ejemplo</span><span class="en">🏃 An example run</span></h3>
+    <div class="card timeline">
+      <div class="tl-item"><div class="tl-t">00:00</div><div class="tl-msg">
+        <span class="es">“Race Coach activo. Parte cómodo; observaré tu esfuerzo y te avisaré sólo si hay una recomendación útil.”<small>Contexto inicial, según tu preparación del día.</small></span>
+        <span class="en">“Race Coach is on. Start comfortably; I'll watch your effort and only speak up if there's a useful recommendation.”<small>Opening message, based on your readiness for the day.</small></span></div></div>
+      <div class="tl-item"><div class="tl-t">00:20</div><div class="tl-msg">
+        <span class="es">¿Cómo vas? → <b>Bien</b><small>Primera pregunta de sensación.</small></span>
+        <span class="en">How does it feel? → <b>Good</b><small>First “how do you feel” check.</small></span></div></div>
+      <div class="tl-item"><div class="tl-t">00:34</div><div class="tl-msg">
+        <span class="es">“Subida sostenida. No persigas el ritmo: mantén el esfuerzo controlado, acorta la zancada y usa los brazos.”<small>Primer consejo de subida de la sesión.</small></span>
+        <span class="en">“Sustained climb. Don't chase the pace: keep the effort controlled, shorten your stride and use your arms.”<small>First climbing tip of the session.</small></span></div></div>
+      <div class="tl-item"><div class="tl-t">00:48</div><div class="tl-msg">
+        <span class="es">“Bajada. Aprovecha la pendiente: zancada fluida, cadencia alta y pisa bajo tu cuerpo.”<small>Bajada moderada: se aprovecha.</small></span>
+        <span class="en">“Downhill. Use the slope: fluid stride, high cadence and land under your body.”<small>Moderate descent: make the most of it.</small></span></div></div>
+      <div class="tl-item"><div class="tl-t">01:05</div><div class="tl-msg">
+        <span class="es">“Muy bien. Vas fuerte y estable. Mantén este esfuerzo.”<small>Refuerzo positivo cuando todo va bien.</small></span>
+        <span class="en">“Great. You're strong and steady. Hold this effort.”<small>Positive feedback when everything is going well.</small></span></div></div>
+      <div class="tl-item"><div class="tl-t">01:27</div><div class="tl-msg">
+        <span class="es">“Queda poco y sigues con control. Este es el momento de aprovechar la reserva.”<small>Darlo todo: empuje final.</small></span>
+        <span class="en">“Not far to go and you're still in control. This is the moment to use your reserve.”<small>All out: the final push.</small></span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DESPUÉS -->
+<section id="despues">
+  <div class="wrap reveal">
+    <h2><small><span class="es">iPhone · después de correr</span><span class="en">iPhone · after the run</span></small><span class="es">Entender lo que pasó</span><span class="en">Understanding what happened</span></h2>
+    <p class="sub es">Al terminar, la carrera llega sola al iPhone con todos sus datos segundo a segundo.</p>
+    <p class="sub en">When you finish, the run arrives on the iPhone on its own, with all its second-by-second data.</p>
+    <div class="grid g3">
+      <div class="card"><h3><span class="es">📊 Detalle completo</span><span class="en">📊 Full detail</span></h3>
+        <p class="es">Mapa, perfil de elevación, ritmo, potencia, pulso y forma de correr; tiempos en subida y bajada, VAM, zonas de pulso, clima y batería.</p>
+        <p class="en">Map, elevation profile, pace, power, heart rate and running form; time climbing and descending, VAM, heart rate zones, weather and battery.</p></div>
+      <div class="card"><h3><span class="es">✂️ Tramos</span><span class="en">✂️ Sections</span></h3>
+        <p class="es">Seleccionas una parte del perfil y se crea un segmento con su distancia, tiempo, ritmo, pulso, potencia e <b>inclinación media</b>. Ideal para comparar dos subidas.</p>
+        <p class="en">Select part of the profile and a segment is created with its distance, time, pace, heart rate, power and <b>average grade</b>. Perfect for comparing two climbs.</p></div>
+      <div class="card"><h3><span class="es">📓 Bitácora</span><span class="en">📓 Coach log</span></h3>
+        <p class="es">Cada mensaje que dijo el coach queda registrado con su hora, para que veas qué te dijo y por qué.</p>
+        <p class="en">Every message the coach gave is logged with its time, so you can see what it said and why.</p></div>
+      <div class="card"><h3><span class="es">💬 Esfuerzo percibido</span><span class="en">💬 Perceived effort</span></h3>
+        <p class="es">Tu RPE de la carrera (1 a 10), editable, que alimenta el análisis.</p>
+        <p class="en">Your run's RPE (1 to 10), editable, which feeds the analysis.</p></div>
+      <div class="card"><h3><span class="es">🗺️ Guardar como ruta</span><span class="en">🗺️ Save as a route</span></h3>
+        <p class="es">Convierte una carrera en ruta para volver a hacerla con anticipación de subidas.</p>
+        <p class="en">Turn a run into a route so you can repeat it with climb warnings.</p></div>
+      <div class="card"><h3><span class="es">📤 Exportar</span><span class="en">📤 Export</span></h3>
+        <p class="es">Un botón sube la carrera a tus servicios conectados (ver Conexiones). A Salud se guarda siempre automáticamente.</p>
+        <p class="en">One button uploads the run to your connected services (see Connections). It's always saved to Health automatically.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- IA -->
+<section id="ia">
+  <div class="wrap reveal">
+    <h2><small><span class="es">iPhone · análisis con IA</span><span class="en">iPhone · AI analysis</span></small><span class="es">Tu carrera, contada como una historia</span><span class="en">Your run, told as a story</span></h2>
+    <div class="grid g2" style="align-items:center">
+      <div>
+        <p class="sub es">Con tu propia cuenta de <b>Gemini</b>, <b>ChatGPT</b> o <b>Claude</b>, RaceCoach le entrega a la IA un resumen completo de la sesión: tu estado previo, tus carreras de la semana, la telemetría por kilómetro, tus tramos, tu esfuerzo percibido y lo que te dijo el coach.</p>
+        <p class="sub en">Using your own <b>Gemini</b>, <b>ChatGPT</b> or <b>Claude</b> account, RaceCoach gives the AI a full summary of the session: how you started the day, your runs that week, per-kilometer data, your sections, your perceived effort and what the coach told you.</p>
+        <ul class="list es">
+          <li><b>Un buen entrenador, no un alarmista:</b> la IA tiene reglas para reconocer lo que hiciste bien, distinguir datos de hipótesis y no exagerar riesgos.</li>
+          <li><b>Una conversación que construye la historia:</b> te hace una pregunta a la vez hasta entender qué pasó; cuando lo tiene claro, te lo cuenta completo.</li>
+          <li><b>Siempre con un modelo disponible:</b> en Gemini eliges Flash, Pro o Flash-Lite y la app busca la versión más nueva; si una falla, prueba otra sola.</li>
+          <li><b>Compártelo:</b> exporta la conversación en un archivo de texto. Y si escribes “borrar análisis”, empiezas de cero.</li>
+          <li><b>En tu idioma:</b> responde en español o inglés según tu teléfono.</li>
+        </ul>
+        <ul class="list en">
+          <li><b>A good coach, not an alarmist:</b> the AI follows rules to recognize what you did well, separate data from guesses and avoid overstating risks.</li>
+          <li><b>A conversation that builds the story:</b> it asks one question at a time until it understands what happened; once it's clear, it tells you the whole story.</li>
+          <li><b>Always a model available:</b> with Gemini you pick Flash, Pro or Flash-Lite and the app finds the newest version; if one fails, it tries another on its own.</li>
+          <li><b>Share it:</b> export the conversation as a text file. And if you type “delete analysis”, you start fresh.</li>
+          <li><b>In your language:</b> it replies in Spanish or English, following your phone.</li>
+        </ul>
+      </div>
+      <div class="phone" aria-hidden="true">
+        <div class="ph-t"><span class="es">Análisis IA</span><span class="en">AI Analysis</span></div>
+        <div class="chat es">
+          <div class="a"><b>1. ANÁLISIS GLOBAL</b><br>Media maratón muy bien ejecutada: potencia estable en torno a 228 W y pulso controlado hasta el final…</div>
+          <div class="a"><b>2. ANÁLISIS POR KM</b><br>Del km 4 al 19 la potencia y la cadencia se mantienen casi idénticas…</div>
+          <div class="a">¿Cómo manejaste la hidratación en la segunda mitad?</div>
+          <div class="u">Tomé un gel en el km 12</div>
+          <div class="a">Eso calza con el repunte de ritmo del km 13. ¿Sentiste las piernas al final o fue más el pulso?</div>
+        </div>
+        <div class="chat en">
+          <div class="a"><b>1. OVERALL ANALYSIS</b><br>A very well executed half marathon: steady power around 228 W and heart rate under control to the end…</div>
+          <div class="a"><b>2. PER-KM ANALYSIS</b><br>From km 4 to 19, power and cadence stay almost identical…</div>
+          <div class="a">How did you handle hydration in the second half?</div>
+          <div class="u">I took a gel at km 12</div>
+          <div class="a">That matches the pace pick-up at km 13. Did your legs fade at the end, or was it more your heart rate?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONEXIONES -->
+<section id="conexiones">
+  <div class="wrap reveal">
+    <h2><small><span class="es">Conexiones</span><span class="en">Connections</span></small><span class="es">Se lleva bien con lo que ya usas</span><span class="en">Works with what you already use</span></h2>
+    <div class="grid g3">
+      <div class="card"><span class="tag t-r"><span class="es">Salud de Apple</span><span class="en">Apple Health</span></span>
+        <p class="es">La fuente principal: sueño, HRV, pulso en reposo, entrenamientos y carga. Cada carrera de RaceCoach se guarda ahí automáticamente.</p>
+        <p class="en">The main source: sleep, HRV, resting heart rate, workouts and load. Every RaceCoach run is saved there automatically.</p></div>
+      <div class="card"><span class="tag t-y">Stryd</span>
+        <p class="es">El pod en la zapatilla aporta potencia, ritmo y forma de correr muy precisos. También puedes subir tus carreras a Stryd PowerCenter.</p>
+        <p class="en">The pod on your shoe provides very accurate power, pace and running form. You can also upload your runs to Stryd PowerCenter.</p></div>
+      <div class="card"><span class="tag t-c">Intervals.icu</span>
+        <p class="es">Opcional: respaldo de carga e historial, y destino para exportar tus carreras.</p>
+        <p class="en">Optional: a backup for load and history, and a destination to export your runs.</p></div>
+      <div class="card"><span class="tag t-o">Strava</span>
+        <p class="es">Compatible con Strava: subes tus carreras con un toque. Si la carrera ya estaba, no se duplica.</p>
+        <p class="en">Compatible with Strava: upload your runs with one tap. If the run is already there, it isn't duplicated.</p></div>
+      <div class="card"><span class="tag t-g"><span class="es">Análisis IA</span><span class="en">AI analysis</span></span>
+        <p class="es">Gemini, ChatGPT o Claude con tu propia clave. Tú eliges el proveedor y el modelo.</p>
+        <p class="en">Gemini, ChatGPT or Claude with your own key. You choose the provider and the model.</p></div>
+      <div class="card"><span class="tag t-c"><span class="es">Privacidad</span><span class="en">Privacy</span></span>
+        <p class="es">No hay servidor de RaceCoach en medio: tus claves quedan en el llavero del iPhone y tus datos viajan solo a los servicios que conectas.</p>
+        <p class="en">There's no RaceCoach server in between: your keys stay in the iPhone's keychain and your data only goes to the services you connect.</p></div>
+    </div>
+
+    <div class="card" style="margin-top:22px">
+      <h3><span class="es">📤 Así se exporta una carrera</span><span class="en">📤 How a run is exported</span></h3>
+      <p class="es">Un archivo con toda la carrera (incluidas vueltas por tramo o por kilómetro) se sube a cada servicio activo. Antes de subir, revisa si ya existe una actividad a la misma hora para no duplicarla.</p>
+      <p class="en">A file with the whole run (including laps per section or per kilometer) is uploaded to each active service. Before uploading, it checks whether an activity already exists at the same time so it isn't duplicated.</p>
+      <div class="flow" style="margin:16px 0">
+        <div class="node" id="n0">🏁 <span class="es">Carrera</span><span class="en">Run</span></div><span class="arrow">→</span>
+        <div class="node" id="n1"><span class="es">Salud</span><span class="en">Health</span></div><span class="arrow">→</span>
+        <div class="node" id="n2">Intervals.icu</div><span class="arrow">→</span>
+        <div class="node" id="n3">Strava</div><span class="arrow">→</span>
+        <div class="node" id="n4">Stryd</div>
+      </div>
+      <button class="go" id="btnExport"><span class="es">▶ Ver exportación</span><span class="en">▶ Watch the export</span></button>
+      <p class="why" id="expWhy"></p>
+    </div>
+  </div>
+</section>
+
+<!-- AJUSTES -->
+<section id="ajustes">
+  <div class="wrap reveal">
+    <h2><small><span class="es">Ajustes</span><span class="en">Settings</span></small><span class="es">A tu manera</span><span class="en">Your way</span></h2>
+    <div class="grid g3">
+      <div class="card"><h3><span class="es">📏 Unidades</span><span class="en">📏 Units</span></h3>
+        <p class="es">Métrico o imperial, en el iPhone y en el reloj (también la voz del coach).</p>
+        <p class="en">Metric or imperial, on the iPhone and the watch (including the coach's voice).</p></div>
+      <div class="card"><h3><span class="es">⌚ Pantallas del reloj</span><span class="en">⌚ Watch screens</span></h3>
+        <p class="es">Eliges las tres métricas principales para llano/pista, subida y bajada, con los mismos colores que verás en el reloj. Y si no te gusta el perfil de elevación en trail, lo ocultas.</p>
+        <p class="en">Choose the three main metrics for flat/track, climbs and descents, in the same colors you'll see on the watch. And if you don't like the elevation profile on trails, hide it.</p></div>
+      <div class="card"><h3><span class="es">❤️ Tu fisiología</span><span class="en">❤️ Your physiology</span></h3>
+        <p class="es">FC máxima, peso y potencia crítica de Stryd, para zonas y cálculos más precisos.</p>
+        <p class="en">Maximum heart rate, weight and Stryd critical power, for more accurate zones and calculations.</p></div>
+      <div class="card"><h3><span class="es">🗺️ Rutas</span><span class="en">🗺️ Routes</span></h3>
+        <p class="es">Importa GPX, envíalas al reloj con su relieve y agrega mensajes propios en puntos de la ruta (precaución, información o ánimo).</p>
+        <p class="en">Import GPX files, send them to the watch with their terrain, and add your own messages at points along the route (caution, info or encouragement).</p></div>
+      <div class="card"><h3><span class="es">📡 Sensores</span><span class="en">📡 Sensors</span></h3>
+        <p class="es">Empareja tu Stryd directamente con el reloj para correr sin el iPhone.</p>
+        <p class="en">Pair your Stryd directly with the watch to run without your iPhone.</p></div>
+      <div class="card"><h3><span class="es">🌎 Idioma</span><span class="en">🌎 Language</span></h3>
+        <p class="es">Toda la app, la voz del coach y la IA, en español o inglés.</p>
+        <p class="en">The whole app, the coach's voice and the AI, in English or Spanish.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GLOSARIO -->
+<section id="glosario">
+  <div class="wrap reveal">
+    <h2><small><span class="es">Sin tecnicismos</span><span class="en">No jargon</span></small><span class="es">Glosario rápido</span><span class="en">Quick glossary</span></h2>
+    <details><summary><span class="es">Potencia (vatios)</span><span class="en">Power (watts)</span></summary>
+      <p class="es">Cuánta energía estás poniendo al correr, en este instante. A diferencia del pulso, reacciona al tiro: si empiezas una subida, sube de inmediato. Por eso es la mejor forma de dosificar en terreno variable.</p>
+      <p class="en">How much energy you're putting into running right now. Unlike heart rate, it reacts instantly: start a climb and it goes up straight away. That's why it's the best way to pace on varied terrain.</p></details>
+    <details><summary><span class="es">GAP (ritmo ajustado por pendiente)</span><span class="en">GAP (grade-adjusted pace)</span></summary>
+      <p class="es">Tu ritmo traducido a “cuánto irías en plano con el mismo esfuerzo”. Subir a 7:00 /km puede ser equivalente a 5:00 en plano.</p>
+      <p class="en">Your pace translated into “how fast you'd go on flat ground with the same effort”. Climbing at 7:00 /km can be the same effort as 5:00 on the flat.</p></details>
+    <details><summary>VAM</summary>
+      <p class="es">Velocidad vertical: cuántos metros subes (o bajas) por hora. Es la forma natural de medir subidas en trail.</p>
+      <p class="en">Vertical speed: how many meters you climb (or descend) per hour. It's the natural way to measure climbs on trails.</p></details>
+    <details><summary><span class="es">HRV (variabilidad cardíaca)</span><span class="en">HRV (heart rate variability)</span></summary>
+      <p class="es">Pequeñas variaciones entre latido y latido. En general, más alta que tu normal indica buena recuperación; más baja, que el cuerpo está más exigido. Se mira siempre contra tu propia base.</p>
+      <p class="en">Small variations between heartbeats. In general, higher than your normal suggests good recovery; lower, that your body is under more stress. It's always compared with your own baseline.</p></details>
+    <details><summary>ATL / CTL</summary>
+      <p class="es">Tu carga de entrenamiento reciente (la última semana) y la de fondo (las últimas 6 semanas). Si la reciente supera mucho a la de fondo, estás más cargado de lo habitual.</p>
+      <p class="en">Your recent training load (the last week) and your background load (the last 6 weeks). If the recent one is much higher, you're carrying more fatigue than usual.</p></details>
+    <details><summary><span class="es">RPE (esfuerzo percibido)</span><span class="en">RPE (rate of perceived exertion)</span></summary>
+      <p class="es">Qué tan duro lo sientes tú. El reloj lo pregunta con tres opciones y al final estima una nota de 1 a 10.</p>
+      <p class="en">How hard it feels to you. The watch asks with three options and estimates a 1–10 score at the end.</p></details>
+    <details><summary><span class="es">Deriva cardíaca</span><span class="en">Cardiac drift</span></summary>
+      <p class="es">Cuando, con el mismo esfuerzo, el pulso va subiendo con el tiempo. Puede ser calor, cansancio o deshidratación; el coach te avisa para que regules antes de que se note en tu rendimiento.</p>
+      <p class="en">When your heart rate keeps rising over time at the same effort. It can be heat, fatigue or dehydration; the coach tells you so you can adjust before it shows in your performance.</p></details>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <b style="color:var(--text)">RaceCoach</b> · <span class="es">App para iPhone y Apple Watch.</span><span class="en">App for iPhone and Apple Watch.</span><br>
+    <span class="es">Los valores de esta página son ejemplos. RaceCoach es una herramienta de entrenamiento y no reemplaza la opinión de un profesional de la salud.</span>
+    <span class="en">The values on this page are examples. RaceCoach is a training tool and doesn't replace advice from a health professional.</span><br>
+    <span class="es">Apple Watch, Salud, Strava, Stryd, Intervals.icu, Gemini, ChatGPT y Claude son marcas de sus respectivos dueños. RaceCoach no está afiliado ni respaldado por ellos.</span>
+    <span class="en">Apple Watch, Health, Strava, Stryd, Intervals.icu, Gemini, ChatGPT and Claude are trademarks of their respective owners. RaceCoach is not affiliated with or endorsed by them.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---------- Idioma: guardado > navegador (español si empieza con "es"; si no, inglés) ----------
+  const META = {
+    es: { title: 'RaceCoach · Tu entrenador en la muñeca', desc: 'Qué mide RaceCoach en el Apple Watch, cómo lo interpreta, cuándo habla, y todo lo que hace el iPhone antes y después de cada carrera.' },
+    en: { title: 'RaceCoach · Your coach on your wrist', desc: 'What RaceCoach measures on Apple Watch, how it interprets it, when it speaks, and everything the iPhone does before and after every run.' }
+  };
+  let lang;
+  try { lang = localStorage.getItem('rc-lang'); } catch (e) { lang = null; }
+  if (lang !== 'es' && lang !== 'en') {
+    const prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+    lang = String(prefs[0] || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
+  }
+  const L = (es, en) => lang === 'es' ? es : en;
+  const renders = [];
+  function applyLang(next, remember){
+    lang = next;
+    document.documentElement.lang = lang;
+    document.body.classList.toggle('lang-es', lang === 'es');
+    document.title = META[lang].title;
+    const d = document.querySelector('meta[name="description"]'); if (d) d.setAttribute('content', META[lang].desc);
+    document.querySelectorAll('.langsw button').forEach(b => b.classList.toggle('on', b.dataset.lang === lang));
+    if (remember) { try { localStorage.setItem('rc-lang', lang); } catch (e) {} }
+    renders.forEach(fn => fn());
+  }
+  document.querySelectorAll('.langsw button').forEach(b => b.onclick = () => applyLang(b.dataset.lang, true));
+
+  // ---------- Aparición suave y navegación activa ----------
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  const links = [...document.querySelectorAll('nav.top a.l')];
+  const secs = links.map(a => document.querySelector(a.getAttribute('href')));
+  const onScroll = () => {
+    let cur = 0;
+    secs.forEach((s,i) => { if (s && s.getBoundingClientRect().top < 140) cur = i; });
+    links.forEach((a,i) => a.classList.toggle('on', i === cur));
+  };
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // ---------- Simulador de preparación (mismas reglas que la app) ----------
+  const VAL = {good:1, moderate:.7, low:.35};
+  const DIMS = [
+    {id:'cardio', es:'Cardiovascular', en:'Cardiovascular', w:.35, opts:[['good','Bien','Good'],['moderate','Regular','Fair'],['low','Baja','Low'],['none','Sin datos','No data']]},
+    {id:'sleep',  es:'Sueño', en:'Sleep', w:.25, opts:[['good','Bien','Good'],['moderate','Regular','Fair'],['low','Muy poco','Very short'],['none','Sin datos','No data']]},
+    {id:'fatigue',es:'Fatiga', en:'Fatigue', w:.25, opts:[['good','Fresco','Fresh'],['moderate','Cargado','Loaded'],['low','Muy cargado','Very loaded'],['none','Sin datos','No data']]},
+    {id:'trail',  es:'Carga muscular', en:'Muscular load', w:.15, opts:[['good','Normal','Normal'],['low','Alta','High'],['none','Sin datos','No data']]}
+  ];
+  const state = {cardio:'good', sleep:'good', fatigue:'good', trail:'good'};
+  const dimsEl = document.getElementById('dims');
+  function renderDims(){
+    dimsEl.innerHTML = '';
+    DIMS.forEach(d => {
+      const row = document.createElement('div'); row.className = 'dim';
+      row.innerHTML = `<span>${L(d.es, d.en)} <small style="color:var(--muted)">(${Math.round(d.w*100)}%)</small></span>`;
+      const seg = document.createElement('div'); seg.className = 'seg';
+      d.opts.forEach(([v, es, en]) => {
+        const b = document.createElement('button'); b.type = 'button'; b.textContent = L(es, en); b.dataset.v = v;
+        if (state[d.id] === v) b.classList.add('on');
+        b.onclick = () => { state[d.id] = v; seg.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); updatePrep(); };
+        seg.appendChild(b);
+      });
+      row.appendChild(seg); dimsEl.appendChild(row);
+    });
+  }
+  function updatePrep(){
+    const known = DIMS.filter(d => state[d.id] !== 'none');
+    const tot = known.reduce((s,d) => s + d.w, 0);
+    const arc = document.getElementById('gArc'), num = document.getElementById('gNum'), lev = document.getElementById('gLevel'), why = document.getElementById('gWhy');
+    if (known.length < 2 || tot < .5) {
+      num.textContent = '—'; lev.textContent = L('Aún sin datos suficientes', 'Not enough data yet'); lev.style.color = 'var(--muted)';
+      arc.style.strokeDashoffset = 527.8; why.textContent = L('Se necesitan al menos dos señales con datos.', 'At least two signals with data are needed.'); return;
+    }
+    const pct = Math.round(known.reduce((s,d) => s + d.w * VAL[state[d.id]], 0) / tot * 100);
+    const adverse = known.filter(d => state[d.id] === 'low').length;
+    const moderate = known.filter(d => state[d.id] === 'moderate').length;
+    let level, color;
+    if (adverse >= 2) { level = L('Prioriza recuperación', 'Prioritize recovery'); color = '--red'; }
+    else if (adverse === 1 || moderate >= 3) { level = L('Conviene moderar', 'Take it easier'); color = '--yellow'; }
+    else { level = L('Listo para correr', 'Ready to run'); color = '--green'; }
+    num.textContent = pct + '%';
+    lev.textContent = level; lev.style.color = `var(${color})`;
+    arc.style.stroke = getComputedStyle(document.documentElement).getPropertyValue(color).trim();
+    arc.style.strokeDashoffset = 527.8 * (1 - pct/100);
+    const missing = DIMS.filter(d => state[d.id] === 'none').map(d => L(d.es, d.en).toLowerCase());
+    const joiner = L(' y ', ' and ');
+    why.textContent = (missing.length ? L(`Sin datos de ${missing.join(joiner)}: el resto se repondera. `, `No ${missing.join(joiner)} data: the rest is reweighted. `) : '') +
+      (adverse === 1 ? L('Una sola señal baja pide moderar, no descansar.', 'One low signal means take it easier, not rest.')
+       : adverse >= 2 ? L('Dos señales bajas coinciden.', 'Two low signals agree.')
+       : moderate ? L('Las señales regulares bajan el %, pero no cambian la recomendación.', 'Fair signals lower the %, but don\'t change the recommendation.')
+       : L('Todo en orden.', 'All good.'));
+  }
+  renders.push(() => { renderDims(); updatePrep(); });
+
+  // ---------- Simulador de pantalla del reloj + GAP (costo de Minetti) ----------
+  const slG = document.getElementById('slGrade'), slP = document.getElementById('slPace');
+  let showProf = true;
+  document.querySelectorAll('#segProf button').forEach(b => b.onclick = () => {
+    showProf = b.dataset.v === '1';
+    document.querySelectorAll('#segProf button').forEach(x => x.classList.toggle('on', x === b)); updateWatch();
+  });
+  const fmtPace = s => `${Math.floor(s/60)}:${String(Math.round(s%60)).padStart(2,'0')}`;
+  const cost = i => 155.4*i**5 - 30.4*i**4 - 43.3*i**3 + 46.3*i**2 + 19.5*i + 3.6;
+  let terrain = 'flat';
+  function updateWatch(){
+    const g = +slG.value / 100, pace = +slP.value; // s/km
+    // Histéresis simple (como el reloj): entrar a ±4 %, salir bajo ±2 %.
+    if (terrain === 'flat') { if (g >= .04) terrain = 'up'; else if (g <= -.04) terrain = 'down'; }
+    else if (terrain === 'up') { if (g <= -.04) terrain = 'down'; else if (g <= .02) terrain = 'flat'; }
+    else { if (g >= .04) terrain = 'up'; else if (g >= -.02) terrain = 'flat'; }
+    const speed = 1000 / pace;
+    const flatSpeed = speed * Math.max(cost(Math.max(-.45, Math.min(.45, g))), .5) / 3.6;
+    const gap = 1000 / flatSpeed;
+    const watts = Math.round(60 * speed * 1.04 * Math.max(cost(g), .8) / 3.6); // ilustrativo (corredor de 60 kg)
+    const vam = Math.round(speed * g * 3600);
+    const hr = Math.round(140 + Math.max(0, cost(g) - 3.6) * 6 + (300 - Math.min(pace,300)) / 6);
+    const M = {
+      power:[watts,'W',L('POTENCIA','POWER'),'var(--orange)'], pace:[fmtPace(pace),'',L('RITMO','PACE'),'var(--cyan)'],
+      gap:[fmtPace(gap),'','GAP','var(--cyan)'], hr:[hr,'',L('FC','HR'),'var(--red)'],
+      vamUp:[Math.max(vam,0),'','VAM+','var(--green)'], vamDown:[Math.max(-vam,0),'','VAM−','var(--green)'],
+      speed:[(speed*3.6).toFixed(1),'',L('VELOCIDAD','SPEED'),'var(--cyan)'], cad:[Math.round(176 + (g < 0 ? 6 : 0) - (g > .08 ? 8 : 0)),'',L('CADENCIA','CADENCE'),'var(--white)']
+    };
+    const LAY = { flat:['power','pace','hr'], up:['power','vamUp','gap'], down:['speed','vamDown','cad'] }[terrain];
+    const head = { flat:[L('LLANO','FLAT'),'rgba(63,214,242,.15)','var(--cyan)'], up:[L('SUBIDA','CLIMB'),'rgba(61,220,132,.18)','var(--green)'], down:[L('BAJADA','DOWNHILL'),'rgba(255,159,46,.18)','var(--orange)'] }[terrain];
+    const set = (id, k) => { const m = M[k]; const el = document.getElementById(id); el.innerHTML = `${m[0]}${m[1] ? `<span style="font-size:13px"> ${m[1]}</span>` : ''}`; el.style.color = m[3]; document.getElementById(id+'l').textContent = m[2]; };
+    set('wC', LAY[0]); set('wL', LAY[1]); set('wR', LAY[2]);
+    const h = document.getElementById('wHead'); h.textContent = head[0]; h.style.background = head[1]; h.style.color = head[2];
+    if (terrain === 'down' && g <= -.14) { h.textContent = L('PASOS CORTOS', 'SHORT STEPS'); }
+    document.getElementById('wProf').style.display = showProf ? '' : 'none';
+    document.getElementById('lbGrade').textContent = `${g > 0 ? '+' : ''}${Math.round(g*100)} %`;
+    document.getElementById('lbPace').textContent = `${fmtPace(pace)} /km`;
+    document.getElementById('wWhy').textContent = L(
+      `A ${fmtPace(pace)} /km con ${Math.round(g*100)} % de pendiente, tu esfuerzo equivale a ${fmtPace(gap)} /km en plano (GAP). Valores de potencia y pulso ilustrativos.`,
+      `At ${fmtPace(pace)} /km on a ${Math.round(g*100)}% gradient, your effort equals ${fmtPace(gap)} /km on the flat (GAP). Power and heart rate values are illustrative.`);
+  }
+  slG.oninput = updateWatch; slP.oninput = updateWatch;
+  renders.push(updateWatch);
+
+  // ---------- Simulador del coach (versión simplificada de las reglas) ----------
+  const cs = {mode:'free', terrain:'flat', signal:'none'};
+  document.querySelectorAll('#coach .seg[data-k]').forEach(seg => seg.querySelectorAll('button').forEach(b => b.onclick = () => {
+    cs[seg.dataset.k] = b.dataset.v; seg.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); updateCoach();
+  }));
+  const slL = document.getElementById('slLeft'); slL.oninput = updateCoach;
+  function updateCoach(){
+    const left = +slL.value; document.getElementById('lbLeft').textContent = `${left} min`;
+    const final = left <= 10, allout = cs.mode === 'allout';
+    let msg = '', why = '', silent = false;
+    if (cs.signal === 'multi') {
+      msg = final
+        ? (allout ? L('Varias señales están cambiando a la vez. Queda poco: baja un punto el esfuerzo y llega con control a la meta.', 'Several signals are changing at once. Not far to go: ease your effort a notch and reach the finish in control.')
+                  : L('Varias señales están cambiando a la vez. Afloja el ritmo y corre cómodo hasta la meta.', 'Several signals are changing at once. Ease the pace and run comfortably to the finish.'))
+        : L('Varias señales están cambiando a la vez. Afloja el ritmo y corre cómodo durante los próximos diez minutos. Después reevaluamos.', "Several signals are changing at once. Ease the pace and run comfortably for the next ten minutes. Then we'll reassess.");
+      why = L('Seguridad primero: varias señales a la vez ganan a cualquier otro mensaje.', 'Safety first: several signals at once beat any other message.');
+    } else if (cs.signal === 'hr') {
+      msg = final
+        ? (allout ? L('Queda poco, pero tu pulso está subiendo más de lo esperado. Baja un punto el esfuerzo y llega con control a la meta.', 'Not far to go, but your heart rate is rising more than expected. Ease your effort a notch and reach the finish in control.')
+                  : L('Ojo: tu pulso está subiendo más de lo esperado. Afloja un poco el esfuerzo hasta la meta.', 'Careful: your heart rate is rising more than expected. Ease off a little until the finish.'))
+        : (cs.terrain === 'up'
+            ? L('Ojo: tu pulso está subiendo más de lo esperado y todavía queda bastante subida. Afloja un poco el esfuerzo durante los próximos diez minutos.', "Careful: your heart rate is rising more than expected and there's still plenty of climbing left. Ease off a little for the next ten minutes.")
+            : L('Ojo: tu pulso está subiendo más de lo esperado para este esfuerzo. Afloja un poco el esfuerzo durante los próximos diez minutos.', 'Careful: your heart rate is rising more than expected for this effort. Ease off a little for the next ten minutes.'));
+      why = final ? L('Cerca de la meta el consejo no habla de “diez minutos”.', 'Near the finish, the advice no longer talks about “ten minutes”.')
+                  : L('Deriva cardíaca sostenida: consejo con seguimiento de 10 minutos.', 'Sustained cardiac drift: advice with a 10-minute follow-up.');
+    } else if (cs.signal === 'perf') {
+      if (allout && final) {
+        msg = L('Queda poco. Cuesta más avanzar y es normal al final: brazos activos, cadencia alta y sostén el esfuerzo hasta la meta.', "Not far to go. Moving forward feels harder, and that's normal at the end: active arms, high cadence, and hold your effort to the finish.");
+        why = L('Darlo todo en el tramo final: una pequeña pérdida de eficiencia es esperable, así que no te pide aflojar.', "All out in the final stretch: a small loss of efficiency is expected, so it doesn't ask you to ease off.");
+      } else {
+        msg = final
+          ? L('Estás empujando, pero avanzas menos en un tramo comparable. No persigas el ritmo: afloja un poco hasta la meta.', "You're pushing, but covering less ground on comparable terrain. Don't chase the pace: ease off a little until the finish.")
+          : L('Estás empujando, pero avanzas menos en un tramo comparable. No persigas el ritmo. Afloja un poco durante los próximos diez minutos y vuelve a encontrar control.', "You're pushing, but covering less ground on comparable terrain. Don't chase the pace. Ease off a little for the next ten minutes and find control again.");
+        why = L('Pérdida de eficiencia sostenida en un tramo comparable.', 'Sustained loss of efficiency on a comparable stretch.');
+      }
+    } else {
+      if (cs.terrain === 'up') { msg = L('Subida sostenida. No persigas el ritmo: mantén el esfuerzo controlado, acorta la zancada y usa los brazos para sostener la cadencia.', "Sustained climb. Don't chase the pace: keep the effort controlled, shorten your stride and use your arms to hold your cadence."); why = L('Consejo de terreno (no se repite en cada subida).', "Terrain tip (it isn't repeated on every climb)."); }
+      else if (cs.terrain === 'softdown') { msg = L('Bajada. Aprovecha la pendiente: zancada fluida, cadencia alta y pisa bajo tu cuerpo.', 'Downhill. Use the slope: fluid stride, high cadence and land under your body.'); why = L('Bajada moderada: hasta 3 consejos por sesión, espaciados.', 'Moderate descent: up to 3 tips per session, spaced out.'); }
+      else if (cs.terrain === 'steepdown') { msg = L('Bajada sostenida. Corre ágil, con pasos cortos y mirada adelante. Deja que la pendiente dé velocidad sin frenar de más.', "Sustained descent. Stay light on your feet, with short steps and eyes ahead. Let the slope give you speed without braking too much."); why = L('Bajada empinada (más de 14 %): pasos cortos, una vez por sesión.', 'Steep descent (over 14%): short steps, once per session.'); }
+      else if (allout && left <= 5) { msg = L('Queda poco y sigues con control. Este es el momento de aprovechar la reserva: acelera de forma progresiva y sostén la técnica.', "Not far to go and you're still in control. This is the moment to use your reserve: speed up progressively and hold your form."); why = L('Darlo todo: el empuje final llega cuando la reserva lo permite.', 'All out: the final push comes when your reserve allows it.'); }
+      else if (left % 2 === 0) { msg = L('Muy bien. Vas fuerte y estable. Mantén este esfuerzo.', "Great. You're strong and steady. Hold this effort."); why = L('Refuerzo positivo cada cierto tiempo cuando todo va bien.', 'Positive feedback every so often when everything is going well.'); }
+      else { msg = L('(silencio)', '(silence)'); silent = true; why = L('No hay nada útil que decir: el coach se calla.', 'Nothing useful to say: the coach stays quiet.'); }
+    }
+    const b = document.getElementById('coachMsg'); b.textContent = msg; b.classList.toggle('silent', silent);
+    document.getElementById('coachWhy').textContent = why;
+  }
+  renders.push(updateCoach);
+
+  // ---------- Animación de exportación ----------
+  document.getElementById('btnExport').onclick = async () => {
+    const ids = ['n0','n1','n2','n3','n4'], why = document.getElementById('expWhy');
+    ids.forEach(i => document.getElementById(i).className = 'node');
+    const steps = [
+      ['n0','ok',L('Se genera el archivo de la carrera, con vueltas por tramo.','The run file is created, with laps per section.')],
+      ['n1','ok',L('Salud: guardada automáticamente al terminar.','Health: saved automatically when you finish.')],
+      ['n2','ok',L('Intervals.icu: subida.','Intervals.icu: uploaded.')],
+      ['n3','skip',L('Strava: ya existía una actividad a esa hora → no se duplica.','Strava: an activity already existed at that time → not duplicated.')],
+      ['n4','ok',L('Stryd: subida.','Stryd: uploaded.')]
+    ];
+    for (const [id, cls, text] of steps) { await new Promise(r => setTimeout(r, 650)); document.getElementById(id).classList.add(cls); why.textContent = text; }
+  };
+
+  applyLang(lang, false);
+})();
+</script>
+</body>
+
+</html>
