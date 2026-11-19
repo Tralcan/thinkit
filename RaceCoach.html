@@ -88,6 +88,7 @@ p.sub{color:var(--muted);max-width:760px;margin:0 0 28px;font-size:17px}
 /* Objetivos y pista */
 .seg button:disabled{opacity:.32;cursor:not-allowed}
 .goalseg button{font-size:14px}
+.w-start{margin-top:12px;background:#30d158;color:#fff;font-weight:600;font-size:15px;padding:11px 0;border-radius:999px;width:88%;text-align:center}
 .tw-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;width:100%;margin-top:10px;text-align:center}
 .tw-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;width:100%;margin-top:10px;text-align:center}
 .tw-grid b,.tw-row b{display:block;font-size:18px;font-variant-numeric:tabular-nums;line-height:1.1}
@@ -459,9 +460,9 @@ body.lang-es .en{display:none!important}
       </div>
       <div>
         <div class="watch">
-          <div style="width:96px;height:96px;border-radius:50%;background:rgba(61,220,132,.16);display:grid;place-items:center;font-size:40px;color:var(--green)">▶︎</div>
-          <div class="w-lab" style="margin-top:12px"><span class="es">OBJETIVO</span><span class="en">GOAL</span></div>
-          <div id="goalSum" style="margin-top:4px;font-size:13px;font-weight:700;text-align:center;color:var(--cyan);padding:0 6px;line-height:1.25"></div>
+          <svg width="30" height="34" viewBox="0 0 30 34" aria-hidden="true" style="color:var(--cyan)"><path d="M5 3v29" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M6.5 4.5c5-2.6 9 2.4 15.5-.4v13.2c-6.5 2.8-10.5-2.2-15.5.4z" fill="currentColor"/></svg>
+          <div class="w-start"><span class="es">Iniciar carrera</span><span class="en">Start run</span></div>
+          <div id="goalSum" style="margin-top:12px;font-size:13px;font-weight:600;text-align:center;color:#fff;padding:0 8px;line-height:1.25"></div>
         </div>
         <p class="why" id="goalLock" style="text-align:center"></p>
       </div>
