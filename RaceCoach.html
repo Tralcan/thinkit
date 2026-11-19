@@ -85,6 +85,14 @@ p.sub{color:var(--muted);max-width:760px;margin:0 0 28px;font-size:17px}
 .a-d{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:8px;color:var(--ac);position:relative}
 .a-d small{font-size:12px;color:#8b97aa;font-weight:600}
 .a-hap{display:inline-block;font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-top:10px}
+/* Objetivos y pista */
+.seg button:disabled{opacity:.32;cursor:not-allowed}
+.goalseg button{font-size:14px}
+.tw-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;width:100%;margin-top:10px;text-align:center}
+.tw-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;width:100%;margin-top:10px;text-align:center}
+.tw-grid b,.tw-row b{display:block;font-size:18px;font-variant-numeric:tabular-nums;line-height:1.1}
+.tw-row b{font-size:15px}
+.tw-grid small,.tw-row small{display:block;font-size:9.5px;color:#8b97aa;font-weight:600}
 /* Simuladores */
 .sim{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:22px;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
 .sim h3{display:flex;align-items:center;gap:8px}
@@ -171,6 +179,7 @@ body.lang-es .en{display:none!important}
     <a class="l" href="#resumen"><span class="es">En 30 segundos</span><span class="en">In 30 seconds</span></a>
     <a class="l" href="#antes"><span class="es">Antes de correr</span><span class="en">Before the run</span></a>
     <a class="l" href="#durante"><span class="es">Durante la carrera</span><span class="en">During the run</span></a>
+    <a class="l" href="#objetivos"><span class="es">Objetivos y pista</span><span class="en">Goals &amp; track</span></a>
     <a class="l" href="#coach"><span class="es">El coach</span><span class="en">The coach</span></a>
     <a class="l" href="#despues"><span class="es">Después</span><span class="en">After</span></a>
     <a class="l" href="#ia"><span class="es">Análisis IA</span><span class="en">AI analysis</span></a>
@@ -405,6 +414,128 @@ body.lang-es .en{display:none!important}
   </div>
 </section>
 
+<!-- OBJETIVOS -->
+<section id="objetivos">
+  <div class="wrap reveal">
+    <h2><small><span class="es">Reloj · antes de partir</span><span class="en">Watch · before you start</span></small><span class="es">Objetivos: dile al reloj qué vas a correr</span><span class="en">Goals: tell the watch what you're about to run</span></h2>
+    <p class="sub es">En la pantalla de inicio del reloj tocas el objetivo, justo bajo el botón para empezar. Puedes combinar varios y el reloj bloquea las combinaciones que no tienen sentido. Sin objetivo es una <b>carrera libre</b>: el coach igual vigila tus señales y el terreno.</p>
+    <p class="sub en">On the watch's start screen, tap the goal, right below the start button. You can combine several, and the watch blocks combinations that don't make sense. With no goal it's a <b>free run</b>: the coach still watches your signals and the terrain.</p>
+    <div class="grid g3">
+      <div class="card"><div class="ico">📏</div><h3><span class="es">Distancia</span><span class="en">Distance</span></h3>
+        <p class="es">De 1 a 200 km, en pasos de 500 m. El coach sabe cuánto te falta, así que adapta los consejos del final y puede decirte cuándo usar la reserva. Es lo que habilita <b>Darlo todo</b>.</p>
+        <p class="en">From 1 to 200 km, in 500 m steps. The coach knows how far you have left, so it adapts its advice near the end and can tell you when to use your reserve. It's what unlocks <b>All out</b>.</p></div>
+      <div class="card"><div class="ico">🔥</div><h3><span class="es">Darlo todo</span><span class="en">All out</span></h3>
+        <p class="es">Sólo con una distancia o una ruta GPX. Parte con control, te pide apretar cuando tu reserva lo permite y al final te dice “ahora: usa la reserva”. En los últimos 10 minutos no te pide aflojar por pequeñas pérdidas de eficiencia: te da un único recordatorio de técnica. No se combina con tiempo ni con zona de pulso.</p>
+        <p class="en">Only with a distance or a GPX route. It starts controlled, asks you to push when your reserve allows, and at the end tells you “now: use your reserve”. In the last 10 minutes it won't ask you to ease off for small efficiency losses: it gives you a single form reminder. It can't be combined with a time or a heart rate zone.</p></div>
+      <div class="card"><div class="ico">⛰️</div><h3><span class="es">Desnivel +</span><span class="en">Elevation gain</span></h3>
+        <p class="es">De 100 a 20 000 m, en pasos de 50 m. Con <b>300 m o más</b> la carrera es de trail: el coach pide más evidencia antes de hablar de tu forma de correr y el perfil de elevación aparece detrás de las métricas (si no lo ocultaste en Ajustes).</p>
+        <p class="en">From 100 to 20,000 m, in 50 m steps. With <b>300 m or more</b> it's a trail run: the coach asks for more evidence before commenting on your running form, and the elevation profile appears behind your metrics (unless you hid it in Settings).</p></div>
+      <div class="card"><div class="ico">⏱️</div><h3><span class="es">Tiempo</span><span class="en">Time</span></h3>
+        <p class="es">De 30 minutos a 24 horas, en pasos de 15 minutos. Es una meta de referencia: queda guardada con la carrera y el análisis con IA la toma en cuenta. No se combina con una ruta GPX ni con Darlo todo.</p>
+        <p class="en">From 30 minutes to 24 hours, in 15-minute steps. It's a reference target: it's saved with the run and the AI analysis takes it into account. It can't be combined with a GPX route or All out.</p></div>
+      <div class="card"><div class="ico">❤️</div><h3><span class="es">Zona de pulso</span><span class="en">Heart rate zone</span></h3>
+        <p class="es">De Z1 a Z5, calculadas con tu pulso en reposo y tu pulso máximo. Al partir te dice el rango; después avisa sólo si te mantienes fuera de la zona más de un minuto, con al menos 4 minutos entre avisos. Mientras tanto la pantalla muestra tu pulso. No se combina con Darlo todo.</p>
+        <p class="en">From Z1 to Z5, based on your resting and maximum heart rate. At the start it tells you the range; after that it only speaks up if you stay outside the zone for more than a minute, with at least 4 minutes between alerts. Meanwhile the screen shows your heart rate. It can't be combined with All out.</p></div>
+      <div class="card"><div class="ico">🗺️</div><h3><span class="es">Ruta GPX</span><span class="en">GPX route</span></h3>
+        <p class="es">Eliges una de las rutas que enviaste desde el iPhone; la distancia y el desnivel salen de la ruta. Tienes mapa en el reloj, avisos antes de cada subida importante, al coronar y en la última subida, y tus propios mensajes en puntos de la ruta. Se combina con Darlo todo o con una zona de pulso, nunca con un tiempo. La puedes borrar del reloj: el iPhone la conserva.</p>
+        <p class="en">Pick one of the routes you sent from the iPhone; distance and elevation gain come from the route. You get a map on the watch, alerts before each big climb, at the top and on the last climb, and your own messages at points along the route. It combines with All out or a heart rate zone, never with a time. You can delete it from the watch: the iPhone keeps it.</p></div>
+    </div>
+
+    <div class="sim" style="margin-top:26px">
+      <div>
+        <h3><span class="badge-sim"><span class="es">SIMULADOR</span><span class="en">SIMULATOR</span></span> <span class="es">Arma tu objetivo</span><span class="en">Build your goal</span></h3>
+        <p class="es" style="color:var(--muted);margin-top:0">Activa y desactiva objetivos como en el reloj. Usa las mismas reglas: lo que no se puede combinar queda bloqueado.</p>
+        <p class="en" style="color:var(--muted);margin-top:0">Turn goals on and off as on the watch. It uses the same rules: whatever can't be combined gets locked.</p>
+        <div class="seg goalseg" id="segGoal">
+          <button data-g="track">🏟️ <span class="es">Pista</span><span class="en">Track</span></button>
+          <button data-g="dist">📏 <span class="es">Distancia 10 km</span><span class="en">Distance 10 km</span></button>
+          <button data-g="allout">🔥 <span class="es">Darlo todo</span><span class="en">All out</span></button>
+          <button data-g="elev">⛰️ <span class="es">Desnivel +500 m</span><span class="en">Gain +500 m</span></button>
+          <button data-g="time">⏱️ <span class="es">Tiempo 1:00</span><span class="en">Time 1:00</span></button>
+          <button data-g="zone">❤️ <span class="es">Zona Z2</span><span class="en">Zone Z2</span></button>
+          <button data-g="route">🗺️ <span class="es">Ruta GPX</span><span class="en">GPX route</span></button>
+        </div>
+        <ul class="list" id="goalWhat" style="margin-top:16px"></ul>
+      </div>
+      <div>
+        <div class="watch">
+          <div style="width:96px;height:96px;border-radius:50%;background:rgba(61,220,132,.16);display:grid;place-items:center;font-size:40px;color:var(--green)">▶︎</div>
+          <div class="w-lab" style="margin-top:12px"><span class="es">OBJETIVO</span><span class="en">GOAL</span></div>
+          <div id="goalSum" style="margin-top:4px;font-size:13px;font-weight:700;text-align:center;color:var(--cyan);padding:0 6px;line-height:1.25"></div>
+        </div>
+        <p class="why" id="goalLock" style="text-align:center"></p>
+      </div>
+    </div>
+
+    <h3 id="pista" style="margin-top:44px"><span class="es">🏟️ Modo Pista, paso a paso</span><span class="en">🏟️ Track mode, step by step</span></h3>
+    <p class="sub es" style="margin-bottom:18px">Pensado para series en una pista atlética. Al activarlo se apagan los demás objetivos: en pista lo que importa son tus tramos.</p>
+    <p class="sub en" style="margin-bottom:18px">Built for intervals on an athletics track. Turning it on switches off every other goal: on the track, what matters is your reps.</p>
+    <div class="steps">
+      <div class="card step"><h3><span class="es">Corre el tramo</span><span class="en">Run the rep</span></h3>
+        <p class="es">Ves la pantalla de Pista: por defecto potencia, ritmo y pulso. En el iPhone la puedes cambiar; el <b>tiempo</b> y la <b>distancia del segmento</b> vuelven a 0 en cada tramo.</p>
+        <p class="en">You see the Track screen: power, pace and heart rate by default. You can change it on the iPhone; <b>segment time</b> and <b>segment distance</b> reset to 0 on every rep.</p></div>
+      <div class="card step"><h3><span class="es">Marca el final</span><span class="en">Mark the end</span></h3>
+        <p class="es">Toca la bandera 🚩 (o el botón de acción del Apple Watch Ultra). El tramo se cierra, su distancia se redondea a 100 m (397 m → 400 m) y la actividad se pausa sola.</p>
+        <p class="en">Tap the flag 🚩 (or the Action button on Apple Watch Ultra). The rep closes, its distance is rounded to 100 m (397 m → 400 m) and the activity pauses by itself.</p></div>
+      <div class="card step"><h3><span class="es">Descansa y sigue</span><span class="en">Rest and go again</span></h3>
+        <p class="es">Mientras descansas ves el resumen del tramo, tu pulso bajando y el cronómetro de descanso. Cuando quieras, ▶︎ (o el botón de acción) y empieza el siguiente. En pista nunca se reanuda solo al moverte.</p>
+        <p class="en">While you rest you see the rep summary, your heart rate coming down and the rest timer. Whenever you're ready, ▶︎ (or the Action button) starts the next one. On the track it never resumes on its own when you move.</p></div>
+    </div>
+
+    <div class="sim" style="margin-top:26px">
+      <div>
+        <h3><span class="es">La pantalla de descanso</span><span class="en">The rest screen</span></h3>
+        <ul class="list">
+          <li class="es"><b>Metros, tiempo, ritmo y potencia media</b> del tramo que terminaste.</li>
+          <li class="en"><b>Meters, time, pace and average power</b> for the rep you just finished.</li>
+          <li class="es"><b>Tiempo 400 m:</b> tu tramo llevado a una vuelta, para comparar series de distinto largo.</li>
+          <li class="en"><b>400 m time:</b> your rep scaled to one lap, to compare reps of different lengths.</li>
+          <li class="es"><b>FC ahora:</b> tu pulso en vivo, para ver cómo te recuperas.</li>
+          <li class="en"><b>HR now:</b> your live heart rate, so you can see how you recover.</li>
+          <li class="es"><b>Descanso:</b> cronómetro que parte en 0:00 al marcar.</li>
+          <li class="en"><b>Rest:</b> a timer that starts at 0:00 when you mark the rep.</li>
+          <li class="es"><b>Para terminar:</b> mantén presionada la pantalla y aparece “Finalizar” (o “Continuar” si fue sin querer).</li>
+          <li class="en"><b>To finish:</b> press and hold the screen and “End” appears (or “Continue” if it was by accident).</li>
+        </ul>
+      </div>
+      <div>
+        <div class="watch" style="padding:12px 10px;justify-content:flex-start">
+          <div style="display:flex;align-items:center;width:100%;gap:6px;margin-top:8px">
+            <span style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.15);display:grid;place-items:center;font-size:10px">▶︎</span>
+            <span style="flex:1;text-align:center;color:var(--orange);font-weight:800;font-size:14px;margin-right:28px">🏁 <span class="es">Segmento 3</span><span class="en">Segment 3</span></span>
+          </div>
+          <div class="tw-grid">
+            <div><b>400 m</b><small><span class="es">Metros</span><span class="en">Meters</span></small></div>
+            <div><b>1:24</b><small><span class="es">Tiempo</span><span class="en">Time</span></small></div>
+            <div><b>3:30</b><small><span class="es">Ritmo</span><span class="en">Pace</span></small></div>
+            <div><b>318 W</b><small><span class="es">Pot. media</span><span class="en">Avg power</span></small></div>
+          </div>
+          <div class="tw-row">
+            <div><b>1:24</b><small><span class="es">Tiempo 400 m</span><span class="en">400 m time</span></small></div>
+            <div><b><span style="color:var(--red)">♥</span> <span id="twHr">162</span></b><small><span class="es">FC ahora</span><span class="en">HR now</span></small></div>
+            <div><b id="twRest">0:00</b><small><span class="es">Descanso</span><span class="en">Rest</span></small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid g4" style="margin-top:22px">
+      <div class="card"><h3><span class="es">📐 Distancia exacta</span><span class="en">📐 Exact distance</span></h3>
+        <p class="es">El GPS en una pista es poco preciso. Por eso cada tramo se redondea a 100 m y el total es la suma de los tramos: es la misma distancia que ves en el reloj, en Salud, en el mapa y en el archivo exportado.</p>
+        <p class="en">GPS on a track isn't very precise. So each rep is rounded to 100 m and the total is the sum of the reps: the same distance you see on the watch, in Health, on the map and in the exported file.</p></div>
+      <div class="card"><h3><span class="es">⏸️ Descansos</span><span class="en">⏸️ Rests</span></h3>
+        <p class="es">Los descansos son pausas: no cuentan en el tiempo activo ni en los tramos. En pista no aparece el cartel “En pausa”, sólo el botón ▶︎ arriba.</p>
+        <p class="en">Rests are pauses: they don't count toward active time or the reps. On the track there's no “Paused” banner, just the ▶︎ button at the top.</p></div>
+      <div class="card"><h3><span class="es">🫀 El coach</span><span class="en">🫀 The coach</span></h3>
+        <p class="es">Sigue vigilando tu pulso, tu forma de correr y tu rendimiento mientras corres, como en una carrera en llano. Una pista se trata siempre como terreno plano.</p>
+        <p class="en">It keeps watching your heart rate, running form and performance while you run, as on a flat road run. A track is always treated as flat terrain.</p></div>
+      <div class="card"><h3><span class="es">📱 Después</span><span class="en">📱 Afterwards</span></h3>
+        <p class="es">En el iPhone la carrera se titula según tus series, por ejemplo “Pista - 4x1200” o “Pista - 2x400+800”. Cada tramo es una vuelta en Strava, Intervals y Stryd, y la IA sabe que fue un entrenamiento en pista.</p>
+        <p class="en">On the iPhone the run is named after your reps, for example “Track - 4x1200” or “Track - 2x400+800”. Each rep is a lap in Strava, Intervals and Stryd, and the AI knows it was a track session.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- COACH -->
 <section id="coach">
   <div class="wrap reveal">
@@ -459,8 +590,8 @@ body.lang-es .en{display:none!important}
         <p class="es">Eliges una zona (por ejemplo Z2) y el coach te avisa solo si te quedas fuera de ella, sin perseguir el pulso de golpe.</p>
         <p class="en">You pick a zone (for example Z2) and the coach only speaks up if you stay outside it, without chasing your heart rate abruptly.</p></div>
       <div class="card"><span class="tag t-c"><span class="es">Pista</span><span class="en">Track</span></span>
-        <p class="es">Marcas cada tramo con un toque y, al terminarlo, ves su resumen en el reloj: ideal para series.</p>
-        <p class="en">Mark each rep with a tap and see its summary on the watch when you finish it: ideal for intervals.</p></div>
+        <p class="es">Marcas cada tramo con un toque y, al terminarlo, ves su resumen en el reloj: ideal para series. <a href="#pista">Ver el modo Pista paso a paso</a>.</p>
+        <p class="en">Mark each rep with a tap and see its summary on the watch when you finish it: ideal for intervals. <a href="#pista">See Track mode step by step</a>.</p></div>
     </div>
 
     <div class="sim" style="margin-top:26px">
@@ -921,6 +1052,82 @@ body.lang-es .en{display:none!important}
     al[k] = b.dataset.v; document.querySelectorAll(`#${id} button`).forEach(x => x.classList.toggle('on', x === b)); updateAlert();
   }));
   renders.push(updateAlert);
+
+  // ---------- Simulador de objetivos (mismas reglas que el reloj) ----------
+  const gs = {track:false, dist:false, allout:false, elev:false, time:false, zone:false, route:false};
+  function enforceGoal(){
+    if (gs.track) { Object.keys(gs).forEach(k => { if (k !== 'track') gs[k] = false; }); return; }
+    if (gs.route) gs.time = false;
+    if (gs.allout && !(gs.dist || gs.route)) gs.allout = false;
+    if (gs.allout) { gs.time = false; gs.zone = false; }
+  }
+  function goalLocked(k){
+    if (k === 'track') return false;
+    if (gs.track) return true;
+    switch (k) {
+      case 'dist': case 'elev': return gs.route;
+      case 'allout': return !(gs.dist || gs.route);
+      case 'time': return gs.route || gs.allout;
+      case 'zone': return gs.allout;
+      case 'route': return gs.allout && !gs.route;
+    }
+    return false;
+  }
+  function updateGoal(){
+    document.querySelectorAll('#segGoal button').forEach(b => {
+      const k = b.dataset.g; b.classList.toggle('on', gs[k]); b.disabled = goalLocked(k);
+    });
+    const extras = [gs.time ? '1:00' : null, gs.zone ? 'Z2' : null].filter(Boolean);
+    let sum;
+    if (gs.track) sum = L('Pista', 'Track');
+    else if (gs.route) sum = ['Cerro Manquehue' + (gs.allout ? L(' + Darlo todo', ' + All out') : '')].concat(extras).join(' · ');
+    else {
+      const parts = [gs.dist ? '10.0 km' : null, gs.elev ? '+500 m' : null].filter(Boolean).concat(extras);
+      if (gs.allout) parts.push(L('Darlo todo', 'All out'));
+      sum = parts.length ? parts.join(' · ') : L('Sin objetivo', 'No goal');
+    }
+    document.getElementById('goalSum').textContent = sum;
+    const w = [];
+    if (gs.track) w.push(L('<b>Pista:</b> los demás objetivos se apagan. Cada vez que marcas un tramo, se cierra, se redondea a 100 m y la actividad se pausa con su resumen.', '<b>Track:</b> every other goal switches off. Each time you mark a rep, it closes, is rounded to 100 m and the activity pauses with its summary.'));
+    else {
+      if (!gs.dist && !gs.route && !gs.elev && !gs.time && !gs.zone) w.push(L('<b>Carrera libre:</b> el coach vigila tu pulso, tu forma de correr y tu rendimiento, y te da consejos de terreno.', '<b>Free run:</b> the coach watches your heart rate, running form and performance, and gives you terrain tips.'));
+      if (gs.route) w.push(L('<b>Ruta (21 km, +850 m):</b> distancia y desnivel salen de la ruta. Mapa en el reloj, avisos de subidas, cima y última subida, y tus mensajes en la ruta.', '<b>Route (21 km, +850 m):</b> distance and gain come from the route. Map on the watch, alerts for climbs, the top and the last climb, and your messages along the route.'));
+      if (gs.dist) w.push(L('<b>Distancia:</b> el coach sabe cuánto falta y adapta los consejos del final.', '<b>Distance:</b> the coach knows how far is left and adapts its advice near the end.'));
+      if (gs.elev || gs.route) w.push(L('<b>Trail</b> (300 m o más de desnivel): el coach pide más evidencia antes de hablar de tu técnica y ves el perfil detrás de las métricas.', '<b>Trail</b> (300 m or more of gain): the coach asks for more evidence before commenting on your form, and you see the profile behind your metrics.'));
+      if (gs.allout) w.push(L('<b>Darlo todo:</b> parte con control, te pide apretar cuando la reserva lo permite y al final te empuja a la meta. En los últimos 10 minutos no te pide aflojar por pequeñas pérdidas de eficiencia.', '<b>All out:</b> it starts controlled, asks you to push when your reserve allows and drives you to the finish. In the last 10 minutes it won\'t ask you to ease off for small efficiency losses.'));
+      if (gs.time) w.push(L('<b>Tiempo:</b> queda como meta de la sesión y el análisis con IA lo toma en cuenta.', '<b>Time:</b> saved as the session target, and the AI analysis takes it into account.'));
+      if (gs.zone) w.push(L('<b>Zona Z2:</b> al partir te dice el rango; avisa sólo si sigues fuera de la zona más de un minuto, con 4 minutos entre avisos. La pantalla muestra tu pulso.', '<b>Zone Z2:</b> at the start it tells you the range; it only alerts you if you stay outside the zone for more than a minute, with 4 minutes between alerts. The screen shows your heart rate.'));
+    }
+    document.getElementById('goalWhat').innerHTML = w.map(x => `<li>${x}</li>`).join('');
+    const locks = [];
+    if (gs.track) locks.push(L('Pista bloquea todo lo demás.', 'Track locks everything else.'));
+    else {
+      if (gs.route) locks.push(L('Con ruta, distancia y desnivel vienen de la ruta y no se fija un tiempo.', 'With a route, distance and gain come from the route and no time can be set.'));
+      if (gs.allout) locks.push(L('Darlo todo bloquea tiempo y zona de pulso' + (gs.route ? '.' : ', y elegir una ruta.'), 'All out locks time and heart rate zone' + (gs.route ? '.' : ', and picking a route.')));
+      if (!gs.dist && !gs.route) locks.push(L('Darlo todo necesita una distancia o una ruta.', 'All out needs a distance or a route.'));
+    }
+    document.getElementById('goalLock').textContent = locks.join(' ');
+  }
+  document.querySelectorAll('#segGoal button').forEach(b => b.onclick = () => {
+    const k = b.dataset.g;
+    if (goalLocked(k)) return;
+    gs[k] = !gs[k];
+    if (k === 'route') { gs.dist = false; gs.elev = false; gs.allout = false; }
+    if (k === 'dist' && !gs.dist && !gs.route) gs.allout = false;
+    enforceGoal(); updateGoal();
+  });
+  renders.push(updateGoal);
+
+  // Pantalla de descanso de pista: cronómetro y pulso que baja.
+  (() => {
+    const rest = document.getElementById('twRest'), hr = document.getElementById('twHr');
+    let t = 0;
+    setInterval(() => {
+      t = (t + 1) % 120;
+      rest.textContent = `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
+      hr.textContent = Math.round(110 + 52 * Math.exp(-t / 35));
+    }, 1000);
+  })();
 
   // ---------- Animación de exportación ----------
   document.getElementById('btnExport').onclick = async () => {
