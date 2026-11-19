@@ -12,7 +12,7 @@
 :root{
   --bg:#0a1424; --bg2:#0f1d33; --card:#13233d; --card2:#182b4a; --line:#24395c;
   --text:#e8eef7; --muted:#9db0cc; --cyan:#3fd6f2; --orange:#ff9f2e; --red:#ff5a5f;
-  --green:#3ddc84; --blue:#4c8dff; --yellow:#ffd23f; --pink:#ff6fa8; --white:#ffffff;
+  --green:#3ddc84; --blue:#4c8dff; --yellow:#ffd23f; --pink:#ff6fa8; --white:#ffffff; --purple:#ff5b3b;
   --radius:18px;
 }
 *{box-sizing:border-box}
@@ -77,6 +77,14 @@ p.sub{color:var(--muted);max-width:760px;margin:0 0 28px;font-size:17px}
 .w-row{display:flex;gap:18px;margin-top:8px}
 .w-ctx{display:flex;gap:10px;margin-top:8px;font-size:11px;font-weight:700}
 .w-prof{position:absolute;left:0;right:0;bottom:22px;height:46px;opacity:.45}
+/* Aviso a pantalla completa */
+.a-glow{position:absolute;inset:0;opacity:.3;background:radial-gradient(150px 120px at 50% 0%,var(--ac),transparent 70%)}
+.a-ico{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;font-size:24px;background:color-mix(in srgb,var(--ac) 22%,transparent);margin-bottom:8px;position:relative}
+.a-t{font-size:22px;font-weight:800;letter-spacing:.3px;color:var(--ac);line-height:1.05;text-align:center;position:relative}
+.a-s{font-size:13px;color:#d6dde8;margin-top:4px;text-align:center;position:relative}
+.a-d{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:8px;color:var(--ac);position:relative}
+.a-d small{font-size:12px;color:#8b97aa;font-weight:600}
+.a-hap{display:inline-block;font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-top:10px}
 /* Simuladores */
 .sim{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:22px;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
 .sim h3{display:flex;align-items:center;gap:8px}
@@ -200,7 +208,7 @@ body.lang-es .en{display:none!important}
           <div class="w-main"><div class="w-val" style="font-size:26px;color:var(--cyan)">4:52</div><div class="w-lab"><span class="es">RITMO</span><span class="en">PACE</span></div></div>
           <div class="w-main"><div class="w-val" style="font-size:26px;color:var(--red)">156</div><div class="w-lab"><span class="es">FC</span><span class="en">HR</span></div></div>
         </div>
-        <div class="w-ctx"><span style="color:var(--orange)">12.4</span><span style="color:var(--green)">+214</span><span style="color:var(--blue)">58:10</span></div>
+        <div class="w-ctx"><span style="color:var(--purple)">12.4</span><span style="color:var(--green)">+214</span><span style="color:var(--blue)">58:10</span></div>
       </div>
     </div>
   </div>
@@ -369,7 +377,7 @@ body.lang-es .en{display:none!important}
             <div class="w-main"><div class="w-val" id="wL" style="font-size:24px">—</div><div class="w-lab" id="wLl">—</div></div>
             <div class="w-main"><div class="w-val" id="wR" style="font-size:24px">—</div><div class="w-lab" id="wRl">—</div></div>
           </div>
-          <div class="w-ctx"><span style="color:var(--orange)">8.42</span><span style="color:var(--green)">+312</span><span style="color:var(--blue)">42:10</span></div>
+          <div class="w-ctx"><span style="color:var(--purple)">8.42</span><span style="color:var(--green)">+312</span><span style="color:var(--blue)">42:10</span></div>
         </div>
         <p class="why" id="wWhy" style="text-align:center"></p>
       </div>
@@ -422,6 +430,24 @@ body.lang-es .en{display:none!important}
       <div class="card"><h3><span class="es">🗺️ Con ruta GPX</span><span class="en">🗺️ With a GPX route</span></h3>
         <p class="es">Te anticipa una subida importante, te avisa al coronar, cuándo viene la última subida, y lee los mensajes que tú dejaste en puntos de la ruta.</p>
         <p class="en">It warns you about a big climb ahead, tells you when you reach the top and when the last climb is coming, and reads out the messages you left at points along the route.</p></div>
+    </div>
+
+    <h3 style="margin-top:36px"><span class="es">🔔 ¿Corres sin audífonos?</span><span class="en">🔔 Running without headphones?</span></h3>
+    <p class="sub es" style="margin-bottom:18px">No hace falta configurar nada: el reloj sabe por dónde suena la voz. Con audífonos, escuchas el consejo y sientes una vibración suave. Sin audífonos, el reloj vibra según el tipo de aviso y muestra una pantalla completa con un ícono, dos o tres palabras y un dato en vivo. Queda visible hasta que levantas la muñeca y unos segundos más; un toque la cierra.</p>
+    <p class="sub en" style="margin-bottom:18px">Nothing to set up: the watch knows where the voice is playing. With headphones, you hear the advice and feel a gentle tap. Without headphones, the watch vibrates according to the type of alert and shows a full screen with an icon, two or three words and a live value. It stays until you raise your wrist, plus a few seconds; a tap closes it.</p>
+    <div class="sim">
+      <div>
+        <h3><span class="badge-sim"><span class="es">SIMULADOR</span><span class="en">SIMULATOR</span></span> <span class="es">Cómo te llega el aviso</span><span class="en">How the alert reaches you</span></h3>
+        <label class="ctl"><span class="es">Audio</span><span class="en">Audio</span></label>
+        <div class="seg" id="segHp"><button class="on" data-v="0"><span class="es">Sin audífonos</span><span class="en">No headphones</span></button><button data-v="1"><span class="es">Con audífonos</span><span class="en">Headphones</span></button></div>
+        <label class="ctl"><span class="es">Aviso</span><span class="en">Alert</span></label>
+        <div class="seg" id="segAl"><button class="on" data-v="hr"><span class="es">Pulso alto</span><span class="en">High heart rate</span></button><button data-v="form"><span class="es">Técnica</span><span class="en">Form</span></button><button data-v="push"><span class="es">Aprieta</span><span class="en">Push</span></button><button data-v="climb"><span class="es">Subida</span><span class="en">Climb</span></button><button data-v="route"><span class="es">Mensaje en la ruta</span><span class="en">Route message</span></button><button data-v="hold"><span class="es">Mantén</span><span class="en">Hold</span></button></div>
+      </div>
+      <div style="text-align:center">
+        <div class="watch" id="alWatch"></div>
+        <span class="a-hap" id="alHap"></span>
+        <p class="why" id="alWhy"></p>
+      </div>
     </div>
 
     <h3 style="margin-top:36px"><span class="es">🎯 Modos de carrera</span><span class="en">🎯 Run modes</span></h3>
@@ -608,8 +634,8 @@ body.lang-es .en{display:none!important}
         <p class="es">Métrico o imperial, en el iPhone y en el reloj (también la voz del coach).</p>
         <p class="en">Metric or imperial, on the iPhone and the watch (including the coach's voice).</p></div>
       <div class="card"><h3><span class="es">⌚ Pantallas del reloj</span><span class="en">⌚ Watch screens</span></h3>
-        <p class="es">Eliges las tres métricas principales para llano/pista, subida y bajada, con los mismos colores que verás en el reloj. Y si no te gusta el perfil de elevación en trail, lo ocultas.</p>
-        <p class="en">Choose the three main metrics for flat/track, climbs and descents, in the same colors you'll see on the watch. And if you don't like the elevation profile on trails, hide it.</p></div>
+        <p class="es">Eliges las tres métricas principales para cuatro pantallas: llano, subida, bajada y pista, con los mismos colores que verás en el reloj. Además de potencia, ritmo, pulso y compañía, hay <b>GAP</b>, <b>tiempo del segmento</b> y <b>distancia del segmento</b> (vuelven a 0 cada vez que marcas un segmento). Y si no te gusta el perfil de elevación en trail, lo ocultas.</p>
+        <p class="en">Choose the three main metrics for four screens: flat, climb, descent and track, in the same colors you'll see on the watch. Besides power, pace, heart rate and the rest, there's <b>GAP</b>, <b>segment time</b> and <b>segment distance</b> (they reset to 0 each time you mark a segment). And if you don't like the elevation profile on trails, hide it.</p></div>
       <div class="card"><h3><span class="es">❤️ Tu fisiología</span><span class="en">❤️ Your physiology</span></h3>
         <p class="es">FC máxima, peso y potencia crítica de Stryd, para zonas y cálculos más precisos.</p>
         <p class="en">Maximum heart rate, weight and Stryd critical power, for more accurate zones and calculations.</p></div>
@@ -850,6 +876,51 @@ body.lang-es .en{display:none!important}
     document.getElementById('coachWhy').textContent = why;
   }
   renders.push(updateCoach);
+
+  // ---------- Simulador de avisos (con / sin audífonos) ----------
+  const al = {hp:'0', kind:'hr'};
+  const ALERTS = {
+    hr:   {c:'var(--orange)', i:'❤️', t:['CONTROLA','EASE OFF'], s:['FC subiendo','HR rising'], d:'168', u:'bpm', h:'strong'},
+    form: {c:'var(--orange)', i:'🦶', t:['CUIDA LA TÉCNICA','MIND YOUR FORM'], s:['Eficiencia bajando','Efficiency dropping'], d:'172', u:'spm', h:'strong'},
+    push: {c:'var(--cyan)',   i:'⚡', t:['APRIETA','PUSH'], s:['Sube un poco','Pick it up a bit'], d:'236', u:'W', h:'up'},
+    climb:{c:'var(--green)',  i:'⛰️', t:['SUBIDA','CLIMB'], s:['No persigas el ritmo',"Don't chase the pace"], d:'+12', u:'%', h:'soft'},
+    route:{c:'var(--blue)',   i:'ℹ️', t:['INFORMACIÓN','INFO'], s:['Agua en 200 m','Water in 200 m'], d:'', u:'', h:'soft'},
+    hold: null
+  };
+  const HAP = {strong:['📳 Vibración fuerte','📳 Strong vibration'], up:['⬆️ Vibración hacia arriba','⬆️ Rising vibration'], soft:['· Vibración suave','· Gentle tap']};
+  function dashHTML(head, color){
+    return `<div class="w-head" style="background:color-mix(in srgb,${color} 16%,transparent);color:${color}">${head}</div>
+      <div class="w-main"><div class="w-val" style="font-size:48px;color:var(--orange)">238</div><div class="w-lab">${L('POTENCIA','POWER')}</div></div>
+      <div class="w-row"><div class="w-main"><div class="w-val" style="font-size:22px;color:var(--cyan)">4:52</div><div class="w-lab">${L('RITMO','PACE')}</div></div>
+      <div class="w-main"><div class="w-val" style="font-size:22px;color:var(--red)">156</div><div class="w-lab">${L('FC','HR')}</div></div></div>`;
+  }
+  function updateAlert(){
+    const a = ALERTS[al.kind], w = document.getElementById('alWatch'), hp = al.hp === '1';
+    const hap = document.getElementById('alHap'), why = document.getElementById('alWhy');
+    if (!a) {
+      w.style.removeProperty('--ac'); w.innerHTML = dashHTML(L('MANTÉN','HOLD'), 'var(--green)');
+      hap.textContent = L(HAP.soft[0], HAP.soft[1]);
+      why.textContent = L('“Mantén este esfuerzo” no interrumpe: sólo una vibración suave y el título arriba, con o sin audífonos.', '“Hold this effort” doesn\'t interrupt: just a gentle tap and the title at the top, with or without headphones.');
+      return;
+    }
+    if (hp) {
+      w.style.removeProperty('--ac'); w.innerHTML = dashHTML(L(a.t[0], a.t[1]), a.c);
+      hap.textContent = L(HAP.soft[0], HAP.soft[1]);
+      why.textContent = L('Con audífonos la voz basta: escuchas el consejo completo y sientes una vibración suave. La pantalla sigue con tus métricas.', 'With headphones the voice is enough: you hear the full advice and feel a gentle tap. The screen keeps showing your metrics.');
+    } else {
+      w.style.setProperty('--ac', a.c);
+      w.innerHTML = `<div class="a-glow"></div><div class="a-ico">${a.i}</div><div class="a-t">${L(a.t[0], a.t[1])}</div><div class="a-s">${L(a.s[0], a.s[1])}</div>` +
+        (a.d ? `<div class="a-d">${a.d} <small>${a.u}</small></div>` : '');
+      hap.textContent = L(HAP[a.h][0], HAP[a.h][1]);
+      why.textContent = al.kind === 'route'
+        ? L('Tus mensajes en la ruta muestran el texto que escribiste. Precaución en amarillo, información en azul y ánimo en cian.', 'Your route messages show the text you wrote. Caution in yellow, info in blue and encouragement in cyan.')
+        : L('Sin audífonos la voz sale por el parlante del reloj, que con viento o tráfico se pierde. La pantalla queda hasta que miras el reloj y unos segundos más.', 'Without headphones the voice plays from the watch speaker, which gets lost in wind or traffic. The screen stays until you look at the watch, plus a few seconds.');
+    }
+  }
+  [['segHp','hp'],['segAl','kind']].forEach(([id, k]) => document.querySelectorAll(`#${id} button`).forEach(b => b.onclick = () => {
+    al[k] = b.dataset.v; document.querySelectorAll(`#${id} button`).forEach(x => x.classList.toggle('on', x === b)); updateAlert();
+  }));
+  renders.push(updateAlert);
 
   // ---------- Animación de exportación ----------
   document.getElementById('btnExport').onclick = async () => {
