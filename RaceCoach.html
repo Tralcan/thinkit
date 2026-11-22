@@ -182,6 +182,7 @@ body.lang-es .en{display:none!important}
     <a class="l" href="#durante"><span class="es">Durante la carrera</span><span class="en">During the run</span></a>
     <a class="l" href="#objetivos"><span class="es">Objetivos y pista</span><span class="en">Goals &amp; track</span></a>
     <a class="l" href="#coach"><span class="es">El coach</span><span class="en">The coach</span></a>
+    <a class="l" href="#seguridad"><span class="es">Seguridad</span><span class="en">Safety</span></a>
     <a class="l" href="#despues"><span class="es">Después</span><span class="en">After</span></a>
     <a class="l" href="#ia"><span class="es">Análisis IA</span><span class="en">AI analysis</span></a>
     <a class="l" href="#conexiones"><span class="es">Conexiones</span><span class="en">Connections</span></a>
@@ -642,6 +643,54 @@ body.lang-es .en{display:none!important}
   </div>
 </section>
 
+<!-- SEGURIDAD -->
+<section id="seguridad">
+  <div class="wrap reveal">
+    <h2><small><span class="es">Reloj + iPhone · seguridad</span><span class="en">Watch + iPhone · safety</span></small><span class="es">Aviso de emergencia: si no vuelves a tiempo, alguien se entera</span><span class="en">Emergency alert: if you're not back in time, someone finds out</span></h2>
+    <p class="sub es">Pensado para emergencias y rescate, no para que te sigan. Mientras todo va bien nadie ve tu ubicación. Si una carrera no termina dentro del tiempo que definiste, tus contactos reciben un correo con tu última posición conocida. Complementa (no reemplaza) el SOS de emergencia y la detección de caídas del Apple Watch.</p>
+    <p class="sub en">Built for emergencies and rescue, not for tracking. While everything is fine nobody sees your location. If a run doesn't finish within the time you set, your contacts get an email with your last known position. It complements (doesn't replace) the Apple Watch's Emergency SOS and fall detection.</p>
+    <div class="grid g3">
+      <div class="card"><div class="ico">⚙️</div><h3><span class="es">Lo configuras una vez</span><span class="en">Set it up once</span></h3>
+        <p class="es">En el iPhone, Ajustes › Seguridad: tu nombre, hasta 5 contactos (con correo), el tiempo máximo de una carrera de <b>calle</b> y de <b>trail</b>, y si está <b>siempre activo</b> o <b>sólo para la próxima carrera</b> (se apaga sola al terminarla).</p>
+        <p class="en">On the iPhone, Settings › Safety: your name, up to 5 contacts (with email), the maximum time for a <b>road</b> and a <b>trail</b> run, and whether it's <b>always on</b> or <b>only for the next run</b> (it turns itself off afterwards).</p></div>
+      <div class="card"><div class="ico">⏱️</div><h3><span class="es">La hora límite</span><span class="en">The time limit</span></h3>
+        <p class="es">Se cuenta desde la partida, con pausas. Calle: el máximo de calle. Trail: el máximo de trail. Con ruta GPX: la hora estimada del plan + 60 min. Una carrera que parte como calle pasa a trail si supera 300 m de desnivel.</p>
+        <p class="en">It's counted from the start, pauses included. Road: the road maximum. Trail: the trail maximum. With a GPX route: the plan's estimated time + 60 min. A run that starts as road switches to trail if it climbs more than 300 m.</p></div>
+      <div class="card"><div class="ico">📡</div><h3><span class="es">Durante la carrera</span><span class="en">During the run</span></h3>
+        <p class="es">Al partir, el reloj registra la carrera; cuando el servidor la recibe, la <b>bandera de segmento se pone verde</b>. Cada 10 minutos envía tu posición. Sin señal, reintenta solo y manda la más reciente apenas la recupera.</p>
+        <p class="en">When you start, the watch registers the run; once the server has it, the <b>segment flag turns green</b>. Every 10 minutes it sends your position. Without signal it retries on its own and sends the latest one as soon as it's back.</p></div>
+      <div class="card"><div class="ico">✉️</div><h3><span class="es">Si no terminas a tiempo</span><span class="en">If you don't finish in time</span></h3>
+        <p class="es">Cada contacto recibe un correo cada 20 minutos (máximo 24 horas): última posición con coordenadas y enlace a Google Maps, hora y precisión, últimas posiciones, ruta, distancia, desnivel, batería y último pulso. Primero sugiere llamarte, porque quizás sólo no tienes señal. Cada correo trae un enlace para detener los avisos.</p>
+        <p class="en">Each contact gets an email every 20 minutes (up to 24 hours): last position with coordinates and a Google Maps link, time and accuracy, recent positions, route, distance, elevation gain, battery and last heart rate. It first suggests calling you, since you may just be out of signal. Every email has a link to stop the alerts.</p></div>
+      <div class="card"><div class="ico">✅</div><h3><span class="es">Al terminar</span><span class="en">When you finish</span></h3>
+        <p class="es">Si terminaste a tiempo, nadie recibe nada. Si ya habían salido avisos, tus contactos reciben un último correo: “terminó su carrera”. Si el reloj no alcanza a avisarlo, lo hace el iPhone al recibir la carrera.</p>
+        <p class="en">If you finished in time, nobody gets anything. If alerts had already gone out, your contacts get one last email: “finished their run”. If the watch can't send it, the iPhone does when it receives the run.</p></div>
+      <div class="card"><div class="ico">🔒</div><h3><span class="es">Privacidad</span><span class="en">Privacy</span></h3>
+        <p class="es">Apagado por defecto. Sin cuentas: cada carrera es una sesión con su propia clave, guardada en el llavero. Al agregar un contacto le llega un correo explicando qué recibiría y cuándo. Todo se borra 48 horas después de terminar.</p>
+        <p class="en">Off by default. No accounts: each run is a session with its own key, stored in the keychain. When you add a contact they get an email explaining what they'd receive and when. Everything is deleted 48 hours after the run ends.</p></div>
+    </div>
+
+    <div class="sim" style="margin-top:26px">
+      <div>
+        <h3><span class="badge-sim"><span class="es">SIMULADOR</span><span class="en">SIMULATOR</span></span> <span class="es">¿Cuándo se avisaría?</span><span class="en">When would they be alerted?</span></h3>
+        <label class="ctl"><span class="es">Carrera</span><span class="en">Run</span></label>
+        <div class="seg" id="segSafe"><button class="on" data-v="road"><span class="es">Calle</span><span class="en">Road</span></button><button data-v="trail"><span class="es">Trail</span><span class="en">Trail</span></button><button data-v="gpx"><span class="es">Con GPX</span><span class="en">With GPX</span></button></div>
+        <label class="ctl" for="slSafeStart"><span class="es">Partida:</span><span class="en">Start:</span> <b id="lbSafeStart">08:00</b></label>
+        <input id="slSafeStart" type="range" min="300" max="1200" value="480" step="15">
+        <label class="ctl" for="slSafeMax"><span id="lbSafeMaxName"></span> <b id="lbSafeMax"></b></label>
+        <input id="slSafeMax" type="range" min="30" max="720" value="150" step="15">
+        <label class="ctl" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="cbSafeTrail"> <span class="es">Supera 300 m de desnivel a mitad de carrera</span><span class="en">Climbs past 300 m mid-run</span></label>
+      </div>
+      <div>
+        <div class="card timeline" id="safeTimeline" style="padding:6px 18px"></div>
+      </div>
+    </div>
+
+    <div class="callout o es"><b>Importante:</b> el reloj necesita internet en algún momento (LTE o el iPhone cerca) para registrar la carrera. Si partes y terminas sin señal, el servidor no sabe que saliste: por eso la bandera de segmento sólo se pone verde cuando quedó registrada. No reemplaza el SOS de emergencia del Apple Watch.</div>
+    <div class="callout o en"><b>Important:</b> the watch needs internet at some point (LTE or the iPhone nearby) to register the run. If you start and finish without signal, the server never knows you left: that's why the segment flag only turns green once it's registered. It doesn't replace the Apple Watch's Emergency SOS.</div>
+  </div>
+</section>
+
 <!-- DESPUÉS -->
 <section id="despues">
   <div class="wrap reveal">
@@ -780,6 +829,9 @@ body.lang-es .en{display:none!important}
       <div class="card"><h3><span class="es">🌎 Idioma</span><span class="en">🌎 Language</span></h3>
         <p class="es">Toda la app, la voz del coach y la IA, en español o inglés.</p>
         <p class="en">The whole app, the coach's voice and the AI, in English or Spanish.</p></div>
+      <div class="card"><h3><span class="es">🛡️ Seguridad</span><span class="en">🛡️ Safety</span></h3>
+        <p class="es">Aviso de emergencia: contactos, tiempos máximos de calle y trail, y siempre o sólo la próxima carrera. <a href="#seguridad">Cómo funciona</a>.</p>
+        <p class="en">Emergency alert: contacts, maximum road and trail times, and always or only the next run. <a href="#seguridad">How it works</a>.</p></div>
     </div>
   </div>
 </section>
@@ -1146,6 +1198,46 @@ body.lang-es .en{display:none!important}
       hr.textContent = Math.round(110 + 52 * Math.exp(-t / 35));
     }, 1000);
   })();
+
+  // ---------- Simulador del aviso de emergencia (mismas reglas que el servidor) ----------
+  const sf = {kind:'road'};
+  const SAFE_DEFAULT = {road:150, trail:360, gpx:180};
+  const hm = m => { m = ((m % 1440) + 1440) % 1440; return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`; };
+  const dur = m => `${Math.floor(m / 60)}:${String(m % 60).padStart(2, '0')} h`;
+  function updateSafe(){
+    const start = +document.getElementById('slSafeStart').value;
+    const max = +document.getElementById('slSafeMax').value;
+    const climbs = document.getElementById('cbSafeTrail').checked;
+    document.getElementById('lbSafeStart').textContent = hm(start);
+    document.getElementById('lbSafeMax').textContent = dur(max);
+    document.getElementById('lbSafeMaxName').textContent = sf.kind === 'gpx'
+      ? L('Hora estimada del plan:', 'Plan estimated time:')
+      : (sf.kind === 'trail' ? L('Máximo trail:', 'Trail maximum:') : L('Máximo calle:', 'Road maximum:'));
+    document.getElementById('cbSafeTrail').disabled = sf.kind !== 'road';
+    const trailMax = 360;
+    let limit, why;
+    if (sf.kind === 'gpx') { limit = start + max + 60; why = L('Hora estimada del plan + 60 min.', "Plan's estimated time + 60 min."); }
+    else if (sf.kind === 'trail') { limit = start + max; why = L('Máximo de trail.', 'Trail maximum.'); }
+    else if (climbs) { limit = start + Math.max(max, trailMax); why = L('Partió como calle y pasó a trail al superar 300 m de D+: usa el máximo de trail (6:00 h).', 'Started as road and switched to trail past 300 m of gain: uses the trail maximum (6:00 h).'); }
+    else { limit = start + max; why = L('Máximo de calle.', 'Road maximum.'); }
+    const row = (t, es, en, color) => `<div class="tl-item"><div class="tl-t" style="${color ? 'color:' + color : ''}">${t}</div><div class="tl-msg">${L(es, en)}</div></div>`;
+    document.getElementById('safeTimeline').innerHTML =
+      row(hm(start), 'Partes. El reloj registra la carrera y la bandera de segmento se pone verde.', 'You start. The watch registers the run and the segment flag turns green.') +
+      row(`${hm(start + 10)}…`, 'Posición cada 10 minutos (sin señal, reintenta).', 'Position every 10 minutes (no signal: it retries).') +
+      row(hm(limit), `<b>Hora límite.</b> ${why} Si terminaste antes, nadie recibe nada.`, `<b>Time limit.</b> ${why} If you finished before this, nobody gets anything.`, 'var(--orange)') +
+      row(hm(limit), '✉️ Aviso 1 a tus contactos, con tu última posición.', '✉️ Alert 1 to your contacts, with your last position.', 'var(--red)') +
+      row(`${hm(limit + 20)} · ${hm(limit + 40)}…`, '✉️ Un aviso cada 20 minutos, hasta que termines o un contacto los detenga (máx. 24 h).', '✉️ One alert every 20 minutes until you finish or a contact stops them (max. 24 h).', 'var(--red)') +
+      row('✅', 'Al terminar, si hubo avisos: “terminó su carrera”.', 'When you finish, if alerts went out: “finished their run”.', 'var(--green)');
+  }
+  document.querySelectorAll('#segSafe button').forEach(b => b.onclick = () => {
+    sf.kind = b.dataset.v;
+    document.querySelectorAll('#segSafe button').forEach(x => x.classList.toggle('on', x === b));
+    document.getElementById('slSafeMax').value = SAFE_DEFAULT[sf.kind];
+    updateSafe();
+  });
+  ['slSafeStart', 'slSafeMax'].forEach(id => document.getElementById(id).oninput = updateSafe);
+  document.getElementById('cbSafeTrail').onchange = updateSafe;
+  renders.push(updateSafe);
 
   // ---------- Animación de exportación ----------
   document.getElementById('btnExport').onclick = async () => {
