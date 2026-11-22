@@ -565,15 +565,15 @@ body.lang-es .en{display:none!important}
     </div>
 
     <h3 style="margin-top:36px"><span class="es">🔔 ¿Corres sin audífonos?</span><span class="en">🔔 Running without headphones?</span></h3>
-    <p class="sub es" style="margin-bottom:18px">No hace falta configurar nada: el reloj sabe por dónde suena la voz. Con audífonos, escuchas el consejo y sientes una vibración suave. Sin audífonos, el reloj vibra según el tipo de aviso y muestra una pantalla completa con un ícono, dos o tres palabras y un dato en vivo. Queda visible hasta que levantas la muñeca y unos segundos más; un toque la cierra.</p>
-    <p class="sub en" style="margin-bottom:18px">Nothing to set up: the watch knows where the voice is playing. With headphones, you hear the advice and feel a gentle tap. Without headphones, the watch vibrates according to the type of alert and shows a full screen with an icon, two or three words and a live value. It stays until you raise your wrist, plus a few seconds; a tap closes it.</p>
+    <p class="sub es" style="margin-bottom:18px">No hace falta configurar nada: el reloj sabe por dónde suena la voz. Con audífonos, escuchas el consejo y sientes una vibración suave. Sin audífonos, el reloj vibra según el tipo de aviso y muestra una pantalla completa con un ícono, dos o tres palabras y un dato en vivo. Queda visible hasta que levantas la muñeca y unos segundos más; un toque la cierra. En subidas y bajadas no hay pantalla completa: que estás subiendo o bajando es obvio, así que sólo cambia el título de arriba (“NO RITMO”, “APROVECHA” o “PASOS CORTOS”).</p>
+    <p class="sub en" style="margin-bottom:18px">Nothing to set up: the watch knows where the voice is playing. With headphones, you hear the advice and feel a gentle tap. Without headphones, the watch vibrates according to the type of alert and shows a full screen with an icon, two or three words and a live value. It stays until you raise your wrist, plus a few seconds; a tap closes it. Climbs and descents get no full screen: you obviously know you're going up or down, so only the title at the top changes (“IGNORE PACE”, “USE THE SLOPE” or “SHORT STEPS”).</p>
     <div class="sim">
       <div>
         <h3><span class="badge-sim"><span class="es">SIMULADOR</span><span class="en">SIMULATOR</span></span> <span class="es">Cómo te llega el aviso</span><span class="en">How the alert reaches you</span></h3>
         <label class="ctl"><span class="es">Audio</span><span class="en">Audio</span></label>
         <div class="seg" id="segHp"><button class="on" data-v="0"><span class="es">Sin audífonos</span><span class="en">No headphones</span></button><button data-v="1"><span class="es">Con audífonos</span><span class="en">Headphones</span></button></div>
         <label class="ctl"><span class="es">Aviso</span><span class="en">Alert</span></label>
-        <div class="seg" id="segAl"><button class="on" data-v="hr"><span class="es">Pulso alto</span><span class="en">High heart rate</span></button><button data-v="form"><span class="es">Técnica</span><span class="en">Form</span></button><button data-v="push"><span class="es">Aprieta</span><span class="en">Push</span></button><button data-v="climb"><span class="es">Subida</span><span class="en">Climb</span></button><button data-v="route"><span class="es">Mensaje en la ruta</span><span class="en">Route message</span></button><button data-v="hold"><span class="es">Mantén</span><span class="en">Hold</span></button></div>
+        <div class="seg" id="segAl"><button class="on" data-v="hr"><span class="es">Pulso alto</span><span class="en">High heart rate</span></button><button data-v="form"><span class="es">Técnica</span><span class="en">Form</span></button><button data-v="push"><span class="es">Aprieta</span><span class="en">Push</span></button><button data-v="climb"><span class="es">Subida</span><span class="en">Climb</span></button><button data-v="down"><span class="es">Bajada</span><span class="en">Descent</span></button><button data-v="steep"><span class="es">Bajada empinada</span><span class="en">Steep descent</span></button><button data-v="route"><span class="es">Mensaje en la ruta</span><span class="en">Route message</span></button><button data-v="hold"><span class="es">Mantén</span><span class="en">Hold</span></button></div>
       </div>
       <div style="text-align:center">
         <div class="watch" id="alWatch"></div>
@@ -1015,16 +1015,25 @@ body.lang-es .en{display:none!important}
     hr:   {c:'var(--orange)', i:'❤️', t:['CONTROLA','EASE OFF'], s:['FC subiendo','HR rising'], d:'168', u:'bpm', h:'strong'},
     form: {c:'var(--orange)', i:'🦶', t:['CUIDA LA TÉCNICA','MIND YOUR FORM'], s:['Eficiencia bajando','Efficiency dropping'], d:'172', u:'spm', h:'strong'},
     push: {c:'var(--cyan)',   i:'⚡', t:['APRIETA','PUSH'], s:['Sube un poco','Pick it up a bit'], d:'236', u:'W', h:'up'},
-    climb:{c:'var(--green)',  i:'⛰️', t:['SUBIDA','CLIMB'], s:['No persigas el ritmo',"Don't chase the pace"], d:'+12', u:'%', h:'soft'},
+    // Terreno: sin pantalla completa, sólo el título (con o sin audífonos).
+    climb:{terrain:'up',   c:'#ffffff', t:['NO RITMO','IGNORE PACE'], h:'soft'},
+    down: {terrain:'down', c:'#ffffff', t:['APROVECHA','USE THE SLOPE'], h:'soft'},
+    steep:{terrain:'down', c:'#ffffff', t:['PASOS CORTOS','SHORT STEPS'], h:'soft'},
     route:{c:'var(--blue)',   i:'ℹ️', t:['INFORMACIÓN','INFO'], s:['Agua en 200 m','Water in 200 m'], d:'', u:'', h:'soft'},
     hold: null
   };
   const HAP = {strong:['📳 Vibración fuerte','📳 Strong vibration'], up:['⬆️ Vibración hacia arriba','⬆️ Rising vibration'], soft:['· Vibración suave','· Gentle tap']};
-  function dashHTML(head, color){
+  // Métricas por defecto de cada pantalla: llano, subida y bajada.
+  const DASH = {
+    flat: [['238','var(--orange)',['POTENCIA','POWER']], ['4:52','var(--cyan)',['RITMO','PACE']], ['156','var(--red)',['FC','HR']]],
+    up:   [['268','var(--orange)',['POTENCIA','POWER']], ['820','var(--green)',['VAM+','VAM+']], ['8:45','var(--cyan)',['RITMO','PACE']]],
+    down: [['14.2','var(--cyan)',['VELOCIDAD','SPEED']], ['940','var(--green)',['VAM−','VAM−']], ['182','#ffffff',['CADENCIA','CADENCE']]]
+  };
+  function dashHTML(head, color, screen){
+    const [c, l, r] = DASH[screen || 'flat'];
+    const m = (x, size) => `<div class="w-main"><div class="w-val" style="font-size:${size}px;color:${x[1]}">${x[0]}</div><div class="w-lab">${L(x[2][0], x[2][1])}</div></div>`;
     return `<div class="w-head" style="background:color-mix(in srgb,${color} 16%,transparent);color:${color}">${head}</div>
-      <div class="w-main"><div class="w-val" style="font-size:48px;color:var(--orange)">238</div><div class="w-lab">${L('POTENCIA','POWER')}</div></div>
-      <div class="w-row"><div class="w-main"><div class="w-val" style="font-size:22px;color:var(--cyan)">4:52</div><div class="w-lab">${L('RITMO','PACE')}</div></div>
-      <div class="w-main"><div class="w-val" style="font-size:22px;color:var(--red)">156</div><div class="w-lab">${L('FC','HR')}</div></div></div>`;
+      ${m(c, 48)}<div class="w-row">${m(l, 22)}${m(r, 22)}</div>`;
   }
   function updateAlert(){
     const a = ALERTS[al.kind], w = document.getElementById('alWatch'), hp = al.hp === '1';
@@ -1033,6 +1042,14 @@ body.lang-es .en{display:none!important}
       w.style.removeProperty('--ac'); w.innerHTML = dashHTML(L('MANTÉN','HOLD'), 'var(--green)');
       hap.textContent = L(HAP.soft[0], HAP.soft[1]);
       why.textContent = L('“Mantén este esfuerzo” no interrumpe: sólo una vibración suave y el título arriba, con o sin audífonos.', '“Hold this effort” doesn\'t interrupt: just a gentle tap and the title at the top, with or without headphones.');
+      return;
+    }
+    if (a.terrain) {
+      w.style.removeProperty('--ac'); w.innerHTML = dashHTML(L(a.t[0], a.t[1]), a.c, a.terrain);
+      hap.textContent = L(HAP.soft[0], HAP.soft[1]);
+      why.textContent = hp
+        ? L('Subidas y bajadas: escuchas el consejo completo, sientes una vibración suave y arriba queda sólo el título.', 'Climbs and descents: you hear the full advice, feel a gentle tap and only the title shows at the top.')
+        : L('Subidas y bajadas no interrumpen ni sin audífonos: la voz sale por el parlante, vibración suave y sólo cambia el título.', "Climbs and descents don't interrupt, even without headphones: the voice plays from the speaker, a gentle tap, and only the title changes.");
       return;
     }
     if (hp) {
