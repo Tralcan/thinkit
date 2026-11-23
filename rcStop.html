@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>RaceCoach · Detener avisos</title>
+<!--
+  RaceCoach · Aviso de emergencia · página "Detener avisos".
+  Estática: Supabase no muestra HTML desde sus funciones. Al abrirla sólo
+  comprueba el enlace; los avisos se detienen únicamente al tocar el botón
+  (los antivirus de correo que abren enlaces solos no detienen nada).
+  Ver design.md › Aviso de emergencia y supabase/README.md.
+-->
+<style>
+  :root { --bg:#f4f6f8; --card:#fff; --text:#15202b; --muted:#5b6773; --accent:#d93025; --ok:#1e8e3e; --line:#e3e7eb; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0e1621; --card:#17212d; --text:#e8edf2; --muted:#9aa7b4; --accent:#ff6b5e; --ok:#4cc276; --line:#26323f; }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  main { max-width:460px; margin:48px auto; padding:0 16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px 24px; }
+  .brand { font-weight:700; letter-spacing:.02em; color:var(--muted); font-size:14px; margin-bottom:18px; }
+  h1 { font-size:22px; line-height:1.3; margin:0 0 10px; }
+  p { margin:0 0 14px; color:var(--muted); }
+  button { width:100%; font:inherit; font-weight:600; font-size:17px; padding:14px 18px; border:0; border-radius:12px;
+           background:var(--accent); color:#fff; cursor:pointer; margin-top:8px; }
+  button:disabled { opacity:.6; cursor:default; }
+  .ok { color:var(--ok); }
+  .hidden { display:none; }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <div class="brand">RaceCoach</div>
+    <div id="view"><p id="loading"></p></div>
+  </div>
+</main>
+<script>
+(function () {
+  "use strict";
+  var ENDPOINT = "https://qrcnmhdfsscmqwhbvjog.supabase.co/functions/v1/emergency/stop";
+  var params = new URLSearchParams(location.search);
+  var s = params.get("s") || "";
+  var t = params.get("t") || "";
+  var lang = (navigator.language || "es").toLowerCase().indexOf("es") === 0 ? "es" : "en";
+
+  var T = {
+    es: {
+      loading: "Comprobando el enlace…",
+      title: function (n) { return "¿Detener los avisos de emergencia de " + n + "?"; },
+      body: "Hazlo sólo si ya lo ubicaste o sabes que está bien. Si lo detienes, ningún contacto recibirá más avisos de esta carrera.",
+      button: "Detener avisos",
+      working: "Deteniendo…",
+      done: "Listo: no se enviarán más avisos.",
+      doneBody: "Puedes cerrar esta página.",
+      already: { stopped: "Los avisos de esta carrera ya estaban detenidos.", finished: "Esta carrera ya terminó: no se enviarán más avisos.", expired: "Esta carrera ya no envía avisos (pasaron 24 horas)." },
+      invalid: "Este enlace no es válido o ya expiró.",
+      error: "No se pudo conectar. Revisa tu conexión e inténtalo de nuevo.",
+      retry: "Reintentar"
+    },
+    en: {
+      loading: "Checking the link…",
+      title: function (n) { return "Stop emergency alerts for " + n + "?"; },
+      body: "Only do this if you've already found them or know they're OK. Once stopped, no contact will get more alerts for this run.",
+      button: "Stop alerts",
+      working: "Stopping…",
+      done: "Done: no more alerts will be sent.",
+      doneBody: "You can close this page.",
+      already: { stopped: "Alerts for this run were already stopped.", finished: "This run already finished: no more alerts will be sent.", expired: "This run no longer sends alerts (24 hours have passed)." },
+      invalid: "This link isn't valid or has expired.",
+      error: "Couldn't connect. Check your connection and try again.",
+      retry: "Try again"
+    }
+  };
+  var L = T[lang];
+  document.documentElement.lang = lang;
+  var view = document.getElementById("view");
+
+  function el(tag, text, cls) {
+    var e = document.createElement(tag);
+    if (text) e.textContent = text;
+    if (cls) e.className = cls;
+    return e;
+  }
+  function show() {
+    view.replaceChildren.apply(view, arguments);
+  }
+  function call(action) {
+    return fetch(ENDPOINT, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ s: s, t: t, action: action })
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (data) { return { status: r.status, data: data }; });
+    });
+  }
+  function showAlready(status) {
+    var msg = L.already[status];
+    if (msg) { show(el("h1", msg, "ok")); return true; }
+    return false;
+  }
+  function showError(retry) {
+    var b = el("button", L.retry);
+    b.addEventListener("click", retry);
+    show(el("p", L.error), b);
+  }
+
+  function check() {
+    show(el("p", L.loading));
+    if (!s || !t) { show(el("h1", L.invalid)); return; }
+    call("check").then(function (r) {
+      if (!r.data || r.data.valid !== true) { show(el("h1", L.invalid)); return; }
+      if (showAlready(r.data.status)) return;
+      var name = r.data.runnerName || "RaceCoach";
+      var button = el("button", L.button);
+      button.addEventListener("click", function () { stop(button); });
+      show(el("h1", L.title(name)), el("p", L.body), button);
+    }, function () { showError(check); });
+  }
+
+  function stop(button) {
+    button.disabled = true;
+    button.textContent = L.working;
+    call("stop").then(function (r) {
+      if (!r.data || r.data.valid !== true) { show(el("h1", L.invalid)); return; }
+      if (r.data.stopped) { show(el("h1", L.done, "ok"), el("p", L.doneBody)); return; }
+      if (!showAlready(r.data.status)) show(el("h1", L.done, "ok"));
+    }, function () {
+      button.disabled = false;
+      button.textContent = L.button;
+      view.appendChild(el("p", L.error));
+    });
+  }
+
+  document.getElementById("loading").textContent = L.loading;
+  check();
+})();
+</script>
+</body>
+</html>
