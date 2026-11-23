@@ -657,8 +657,8 @@ body.lang-es .en{display:none!important}
         <p class="es">Se cuenta desde la partida, con pausas. Calle: el máximo de calle. Trail: el máximo de trail. Con ruta GPX: la hora estimada del plan + 60 min. Una carrera que parte como calle pasa a trail si supera 300 m de desnivel.</p>
         <p class="en">It's counted from the start, pauses included. Road: the road maximum. Trail: the trail maximum. With a GPX route: the plan's estimated time + 60 min. A run that starts as road switches to trail if it climbs more than 300 m.</p></div>
       <div class="card"><div class="ico">📡</div><h3><span class="es">Durante la carrera</span><span class="en">During the run</span></h3>
-        <p class="es">Al partir, el reloj registra la carrera; cuando el servidor la recibe, la <b>bandera de segmento se pone verde</b>. Cada 10 minutos envía tu posición. Sin señal, reintenta solo y manda la más reciente apenas la recupera.</p>
-        <p class="en">When you start, the watch registers the run; once the server has it, the <b>segment flag turns green</b>. Every 10 minutes it sends your position. Without signal it retries on its own and sends the latest one as soon as it's back.</p></div>
+        <p class="es">Al partir, el reloj registra la carrera; cuando el servidor la recibe, el <b>botón de pausa se pone verde</b>, y al pausar aparece «Emergencia activada» bajo «En Pausa». Cada 10 minutos envía tu posición. Sin señal, reintenta solo y manda la más reciente apenas la recupera.</p>
+        <p class="en">When you start, the watch registers the run; once the server has it, the <b>pause button turns green</b>, and when you pause, “Emergency alert on” appears under “Paused”. Every 10 minutes it sends your position. Without signal it retries on its own and sends the latest one as soon as it's back.</p></div>
       <div class="card"><div class="ico">✉️</div><h3><span class="es">Si no terminas a tiempo</span><span class="en">If you don't finish in time</span></h3>
         <p class="es">Cada contacto recibe un correo cada 20 minutos (máximo 24 horas): última posición con coordenadas y enlace a Google Maps, hora y precisión, últimas posiciones, ruta, distancia, desnivel, batería y último pulso. Primero sugiere llamarte, porque quizás sólo no tienes señal. Cada correo trae un enlace para detener los avisos.</p>
         <p class="en">Each contact gets an email every 20 minutes (up to 24 hours): last position with coordinates and a Google Maps link, time and accuracy, recent positions, route, distance, elevation gain, battery and last heart rate. It first suggests calling you, since you may just be out of signal. Every email has a link to stop the alerts.</p></div>
@@ -686,8 +686,8 @@ body.lang-es .en{display:none!important}
       </div>
     </div>
 
-    <div class="callout o es"><b>Importante:</b> el reloj necesita internet en algún momento (LTE o el iPhone cerca) para registrar la carrera. Si partes y terminas sin señal, el servidor no sabe que saliste: por eso la bandera de segmento sólo se pone verde cuando quedó registrada. No reemplaza el SOS de emergencia del Apple Watch.</div>
-    <div class="callout o en"><b>Important:</b> the watch needs internet at some point (LTE or the iPhone nearby) to register the run. If you start and finish without signal, the server never knows you left: that's why the segment flag only turns green once it's registered. It doesn't replace the Apple Watch's Emergency SOS.</div>
+    <div class="callout o es"><b>Importante:</b> el reloj necesita internet en algún momento (LTE o el iPhone cerca) para registrar la carrera. Si partes y terminas sin señal, el servidor no sabe que saliste: por eso el botón de pausa sólo se pone verde cuando quedó registrada. No reemplaza el SOS de emergencia del Apple Watch.</div>
+    <div class="callout o en"><b>Important:</b> the watch needs internet at some point (LTE or the iPhone nearby) to register the run. If you start and finish without signal, the server never knows you left: that's why the pause button only turns green once it's registered. It doesn't replace the Apple Watch's Emergency SOS.</div>
   </div>
 </section>
 
@@ -1222,7 +1222,7 @@ body.lang-es .en{display:none!important}
     else { limit = start + max; why = L('Máximo de calle.', 'Road maximum.'); }
     const row = (t, es, en, color) => `<div class="tl-item"><div class="tl-t" style="${color ? 'color:' + color : ''}">${t}</div><div class="tl-msg">${L(es, en)}</div></div>`;
     document.getElementById('safeTimeline').innerHTML =
-      row(hm(start), 'Partes. El reloj registra la carrera y la bandera de segmento se pone verde.', 'You start. The watch registers the run and the segment flag turns green.') +
+      row(hm(start), 'Partes. El reloj registra la carrera y el botón de pausa se pone verde.', 'You start. The watch registers the run and the pause button turns green.') +
       row(`${hm(start + 10)}…`, 'Posición cada 10 minutos (sin señal, reintenta).', 'Position every 10 minutes (no signal: it retries).') +
       row(hm(limit), `<b>Hora límite.</b> ${why} Si terminaste antes, nadie recibe nada.`, `<b>Time limit.</b> ${why} If you finished before this, nobody gets anything.`, 'var(--orange)') +
       row(hm(limit), '✉️ Aviso 1 a tus contactos, con tu última posición.', '✉️ Alert 1 to your contacts, with your last position.', 'var(--red)') +
